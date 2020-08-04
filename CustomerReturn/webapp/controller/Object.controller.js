@@ -1,8 +1,10 @@
+/*global location history */
 sap.ui.define([
 	"./BaseController",
 	"sap/ui/model/json/JSONModel",
+	"sap/ui/core/routing/History",
 	"../model/formatter"
-], function (BaseController, JSONModel, formatter) {
+], function (BaseController, JSONModel, History, formatter) {
 	"use strict";
 
 	return BaseController.extend("cn.bosch.CustomerReturn.controller.Object", {
@@ -43,24 +45,22 @@ sap.ui.define([
 		/* event handlers                                              */
 		/* =========================================================== */
 
+
 		/**
-		 * Event handler when the share in JAM button has been clicked
+		 * Event handler  for navigating back.
+		 * It there is a history entry we go one step back in the browser history
+		 * If not, it will replace the current entry of the browser history with the worklist route.
 		 * @public
 		 */
-		onShareInJamPress : function () {
-			var oViewModel = this.getModel("objectView"),
-				oShareDialog = sap.ui.getCore().createComponent({
-					name: "sap.collaboration.components.fiori.sharing.dialog",
-					settings: {
-						object:{
-							id: location.href,
-							share: oViewModel.getProperty("/shareOnJamTitle")
-						}
-					}
-				});
-			oShareDialog.open();
-		},
+		onNavBack : function() {
+			var sPreviousHash = History.getInstance().getPreviousHash();
 
+			if (sPreviousHash !== undefined) {
+				history.go(-1);
+			} else {
+				this.getRouter().navTo("worklist", {}, true);
+			}
+		},
 
 		/* =========================================================== */
 		/* internal methods                                            */
@@ -126,18 +126,10 @@ sap.ui.define([
 			var oResourceBundle = this.getResourceBundle(),
 				oObject = oView.getBindingContext().getObject(),
 				sObjectId = oObject.CustomerReturn,
-				sObjectName = oObject.TotalNetAmount;
+				sObjectName = oObject.CustomerReturn;
 
 			oViewModel.setProperty("/busy", false);
-			// Add the object page to the flp routing history
-			this.addHistoryEntry({
-				title: this.getResourceBundle().getText("objectTitle") + " - " + sObjectName,
-				icon: "sap-icon://enter-more",
-				intent: "#CustomerReturn-display&/A_CustomerReturn/" + sObjectId
-			});
 
-			oViewModel.setProperty("/saveAsTileTitle", oResourceBundle.getText("saveAsTileTitle", [sObjectName]));
-			oViewModel.setProperty("/shareOnJamTitle", sObjectName);
 			oViewModel.setProperty("/shareSendEmailSubject",
 			oResourceBundle.getText("shareSendEmailObjectSubject", [sObjectId]));
 			oViewModel.setProperty("/shareSendEmailMessage",

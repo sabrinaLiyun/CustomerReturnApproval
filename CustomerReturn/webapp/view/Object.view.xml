@@ -2,8 +2,7 @@
 	controllerName="cn.bosch.CustomerReturn.controller.Object"
 	xmlns="sap.m"
 	xmlns:mvc="sap.ui.core.mvc"
-	xmlns:semantic="sap.f.semantic"
-	xmlns:footerbar="sap.ushell.ui.footerbar">
+	xmlns:semantic="sap.f.semantic">
 
 	<semantic:SemanticPage
 		id="page"
@@ -13,9 +12,7 @@
 		busyIndicatorDelay="{objectView>/delay}">
 
 		<semantic:titleHeading>
-			<Title
-				text="{TotalNetAmount}"
-				level="H2"/>
+			<Title text="{CustomerReturn}" />
 		</semantic:titleHeading>
 
 		<semantic:headerContent>
@@ -32,13 +29,6 @@
 			<semantic:SendEmailAction id="shareEmail" press=".onShareEmailPress"/>
 		</semantic:sendEmailAction>
 
-		<semantic:shareInJamAction>
-			<semantic:ShareInJamAction id="shareInJam" visible="{FLP>/isShareInJamActive}" press=".onShareInJamPress"/>
-		</semantic:shareInJamAction>
-
-		<semantic:saveAsTileAction>
-			<footerbar:AddBookmarkButton id ="shareTile" title="{objectView>/saveAsTileTitle}"/>
-		</semantic:saveAsTileAction>
 
 	</semantic:SemanticPage>
 

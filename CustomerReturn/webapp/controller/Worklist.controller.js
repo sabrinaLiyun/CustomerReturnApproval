@@ -1,3 +1,4 @@
+/*global location history */
 sap.ui.define([
 	"./BaseController",
 	"sap/ui/model/json/JSONModel",
@@ -34,7 +35,6 @@ sap.ui.define([
 			// Model used to manipulate control states
 			oViewModel = new JSONModel({
 				worklistTableTitle : this.getResourceBundle().getText("worklistTableTitle"),
-				saveAsTileTitle: this.getResourceBundle().getText("saveAsTileTitle", this.getResourceBundle().getText("worklistViewTitle")),
 				shareOnJamTitle: this.getResourceBundle().getText("worklistTitle"),
 				shareSendEmailSubject: this.getResourceBundle().getText("shareSendEmailWorklistSubject"),
 				shareSendEmailMessage: this.getResourceBundle().getText("shareSendEmailWorklistMessage", [location.href]),
@@ -50,12 +50,6 @@ sap.ui.define([
 				// Restore original busy indicator delay for worklist's table
 				oViewModel.setProperty("/tableBusyDelay", iOriginalBusyDelay);
 			});
-			// Add the worklist page to the flp routing history
-			this.addHistoryEntry({
-				title: this.getResourceBundle().getText("worklistViewTitle"),
-				icon: "sap-icon://table-view",
-				intent: "#CustomerReturn-display"
-			}, true);
 		},
 
 		/* =========================================================== */
@@ -96,24 +90,16 @@ sap.ui.define([
 			this._showObject(oEvent.getSource());
 		},
 
-
 		/**
-		 * Event handler when the share in JAM button has been clicked
+		 * Event handler for navigating back.
+		 * We navigate back in the browser history
 		 * @public
 		 */
-		onShareInJamPress : function () {
-			var oViewModel = this.getModel("worklistView"),
-				oShareDialog = sap.ui.getCore().createComponent({
-					name: "sap.collaboration.components.fiori.sharing.dialog",
-					settings: {
-						object:{
-							id: location.href,
-							share: oViewModel.getProperty("/shareOnJamTitle")
-						}
-					}
-				});
-			oShareDialog.open();
+		onNavBack : function() {
+			// eslint-disable-next-line sap-no-history-manipulation
+			history.go(-1);
 		},
+
 
 		onSearch : function (oEvent) {
 			if (oEvent.getParameters().refreshButtonPressed) {
@@ -127,7 +113,7 @@ sap.ui.define([
 				var sQuery = oEvent.getParameter("query");
 
 				if (sQuery && sQuery.length > 0) {
-					aTableSearchState = [new Filter("TotalNetAmount", FilterOperator.Contains, sQuery)];
+					aTableSearchState = [new Filter("CustomerReturn", FilterOperator.Contains, sQuery)];
 				}
 				this._applySearch(aTableSearchState);
 			}

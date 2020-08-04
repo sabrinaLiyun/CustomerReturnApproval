@@ -2,12 +2,12 @@
 
 QUnit.config.autostart = false;
 
-sap.ui.getCore().attachInit(function () {
+sap.ui.getCore().attachInit(function() {
 	"use strict";
 
 	sap.ui.require([
 		"cn/bosch/CustomerReturn/test/integration/AllJourneys"
-	], function () {
+	], function() {
 		QUnit.start();
 	});
 });

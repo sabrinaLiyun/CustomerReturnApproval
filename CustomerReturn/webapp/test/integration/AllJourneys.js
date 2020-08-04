@@ -1,17 +1,15 @@
 sap.ui.define([
 	"sap/ui/test/Opa5",
-	"./arrangements/FLP",
+	"./arrangements/Startup",
 	"./WorklistJourney",
 	"./NavigationJourney",
 	"./NotFoundJourney",
-	"./ObjectJourney",
-	"./FLPIntegrationJourney"
-], function (Opa5, FLP) {
+	"./ObjectJourney"
+], function (Opa5, Startup) {
 	"use strict";
 
 	Opa5.extendConfig({
-		arrangements: new FLP(),
-		assertions: new FLP(),
+		arrangements: new Startup(),
 		viewNamespace: "cn.bosch.CustomerReturn.view.",
 		autoWait: true
 	});

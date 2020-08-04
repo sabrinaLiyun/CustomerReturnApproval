@@ -5,7 +5,8 @@
       "target": {
         "type": "service",
         "name": "sapui5",
-        "entryPath": "/resources"
+        "entryPath": "/resources",
+        "version": "1.60.28"
       },
       "description": "SAPUI5 Resources"
     },
@@ -14,7 +15,8 @@
       "target": {
         "type": "service",
         "name": "sapui5",
-        "entryPath": "/test-resources"
+        "entryPath": "/test-resources",
+        "version": "1.60.28"
       },
       "description": "SAPUI5 Test Resources"
     },
@@ -23,7 +25,8 @@
       "target": {
         "type": "service",
         "name": "sapui5",
-        "entryPath": "/resources"
+        "entryPath": "/resources",
+        "version": "1.60.28"
       },
       "description": "SAPUI5 Resources"
     },
@@ -32,7 +35,8 @@
       "target": {
         "type": "service",
         "name": "sapui5",
-        "entryPath": "/test-resources"
+        "entryPath": "/test-resources",
+        "version": "1.60.28"
       },
       "description": "SAPUI5 Test Resources"
     },
@@ -45,6 +49,6 @@
       "description": "S4X011_WebIDE_NonSSO"
     }
   ],
-  "welcomeFile": "/webapp/test/flpSandbox.html",
+  "welcomeFile": "/webapp/index.html",
   "sendWelcomeFileRedirect": true
 }

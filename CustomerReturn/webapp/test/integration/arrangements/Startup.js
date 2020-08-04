@@ -2,7 +2,7 @@ sap.ui.define([
 	"sap/ui/test/Opa5",
 	"cn/bosch/CustomerReturn/localService/mockserver",
 	"sap/ui/model/odata/v2/ODataModel"
-], function (Opa5, mockserver, ODataModel) {
+], function(Opa5, mockserver, ODataModel) {
 	"use strict";
 
 	return Opa5.extend("cn.bosch.CustomerReturn.test.integration.arrangements.Startup", {
@@ -14,13 +14,13 @@ sap.ui.define([
 		 * @param {string} [oOptionsParameter.hash] The in-app hash can also be passed separately for better readability in tests
 		 * @param {boolean} [oOptionsParameter.autoWait=true] Automatically wait for pending requests while the application is starting up
 		 */
-		iStartMyApp: function (oOptionsParameter) {
+		iStartMyApp : function (oOptionsParameter) {
 			var oOptions = oOptionsParameter || {};
-			oOptions.autoWait = typeof oOptions.autoWait !== "undefined" ? oOptions.autoWait : true;
-			// start the app with a minimal delay to make tests fast but still async to discover basic timing issues
-			oOptions.delay = oOptions.delay || 1;
 
 			this._clearSharedData();
+
+			// start the app with a minimal delay to make tests fast but still async to discover basic timing issues
+			oOptions.delay = oOptions.delay || 1;
 
 			// configure mock server with the current options
 			var oMockServerInitialized = mockserver.init(oOptions);
@@ -36,11 +36,17 @@ sap.ui.define([
 				autoWait: oOptions.autoWait
 			});
 		},
-		iRestartTheAppWithTheRememberedItem: function (oOptions) {
+		iRestartTheAppWithTheRememberedItem : function (oOptions) {
+			var sObjectId;
 			this.waitFor({
-				success: function () {
-					var sObjectId = this.getContext().currentItem.id;
-					oOptions.hash = "A_CustomerReturn/" + sObjectId;
+				success : function () {
+					sObjectId = this.getContext().currentItem.id;
+				}
+			});
+
+			this.waitFor({
+				success : function() {
+					oOptions.hash = "A_CustomerReturn/" + encodeURIComponent(sObjectId);
 					this.iStartMyApp(oOptions);
 				}
 			});

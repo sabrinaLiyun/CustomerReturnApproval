@@ -2,18 +2,19 @@
 
 sap.ui.define([
 	"sap/ui/test/opaQunit",
+	"sap/ui/Device",
 	"./pages/Worklist",
 	"./pages/App"
-], function (opaTest) {
+], function (opaTest, Device) {
 	"use strict";
+
+	var iDelay = (Device.browser.msie || Device.browser.edge) ? 1500 : 1000;
 
 	QUnit.module("Worklist");
 
 	opaTest("Should see the table with all entries", function (Given, When, Then) {
 		// Arrangements
-		Given.iStartMyFLPApp({
-			intent: "CustomerReturn-display"
-		});
+		Given.iStartMyApp();
 
 		// Assertions
 		Then.onTheWorklistPage.theTableShouldHaveAllEntries().
@@ -31,22 +32,36 @@ sap.ui.define([
 
 	opaTest("Entering something that cannot be found into search field and pressing search field's refresh should leave the list as it was", function (Given, When, Then) {
 		//Actions
-		When.onTheWorklistPage.iSearchForSomethingWithNoResults().
-			and.iClearTheSearch();
+		When.onTheWorklistPage.iTypeSomethingInTheSearchThatCannotBeFoundAndTriggerRefresh();
 
 		// Assertions
 		Then.onTheWorklistPage.theTableHasEntries();
-	});
-
-	opaTest("Should open the share menu and display the share buttons", function (Given, When, Then) {
-		// Actions
-		When.onTheWorklistPage.iPressOnTheShareButton();
-
-		// Assertions
-		Then.onTheWorklistPage.iShouldSeeTheShareEmailButton();
 
 		// Cleanup
-		Then.iLeaveMyFLPApp();
+		Then.iTeardownMyApp();
+	});
+
+
+	opaTest("Should see the busy indicator on app view while worklist view metadata is loaded", function (Given, When, Then) {
+		// Arrangements
+		Given.iStartMyApp({
+			delay: iDelay,
+			autoWait: false
+		});
+
+		// Assertions
+		Then.onTheAppPage.iShouldSeeTheBusyIndicatorForTheWholeApp();
+	});
+
+	opaTest("Should see the busy indicator on worklist table after metadata is loaded", function (Given, When, Then) {
+		//Actions
+		When.onTheAppPage.iWaitUntilTheAppBusyIndicatorIsGone();
+
+		// Assertions
+		Then.onTheWorklistPage.iShouldSeeTheWorklistTableBusyIndicator();
+
+		// Cleanup
+		Then.iTeardownMyApp();
 	});
 
 });

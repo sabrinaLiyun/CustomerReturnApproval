@@ -1,17 +1,23 @@
-<edmx:Edmx xmlns:edmx="http://schemas.microsoft.com/ado/2007/06/edmx"
-	xmlns:m="http://schemas.microsoft.com/ado/2007/08/dataservices/metadata" xmlns:sap="http://www.sap.com/Protocols/SAPData" Version="1.0">
-	<edmx:Reference xmlns:edmx="http://docs.oasis-open.org/odata/ns/edmx"
-		Uri="./IWFND/CATALOGSERVICE;v=2/Vocabularies(TechnicalName='%2FIWBEP%2FVOC_COMMON',Version='0001',SAP__Origin='LOCAL')/$value"><edmx:Include Namespace="com.sap.vocabularies.Common.v1" Alias="Common"/></edmx:Reference>
-	<edmx:Reference xmlns:edmx="http://docs.oasis-open.org/odata/ns/edmx"
-		Uri="./IWFND/CATALOGSERVICE;v=2/Vocabularies(TechnicalName='%2FIWBEP%2FVOC_CAPABILITIES',Version='0001',SAP__Origin='LOCAL')/$value"><edmx:Include Namespace="Org.OData.Capabilities.V1" Alias="Capabilities"/></edmx:Reference>
-	<edmx:Reference xmlns:edmx="http://docs.oasis-open.org/odata/ns/edmx"
-		Uri="./IWFND/CATALOGSERVICE;v=2/Vocabularies(TechnicalName='%2FIWBEP%2FVOC_COMMUNICATION',Version='0001',SAP__Origin='LOCAL')/$value"><edmx:Include Namespace="com.sap.vocabularies.Communication.v1" Alias="Communication"/></edmx:Reference>
-	<edmx:Reference xmlns:edmx="http://docs.oasis-open.org/odata/ns/edmx"
-		Uri="./IWFND/CATALOGSERVICE;v=2/Vocabularies(TechnicalName='%2FIWBEP%2FVOC_AGGREGATION',Version='0001',SAP__Origin='LOCAL')/$value"><edmx:Include Namespace="Org.OData.Aggregation.V1" Alias="Aggregation"/></edmx:Reference>
-	<edmx:Reference xmlns:edmx="http://docs.oasis-open.org/odata/ns/edmx"
-		Uri="./IWFND/CATALOGSERVICE;v=2/Vocabularies(TechnicalName='%2FIWBEP%2FVOC_PERSONALDATA',Version='0001',SAP__Origin='LOCAL')/$value"><edmx:Include Namespace="com.sap.vocabularies.PersonalData.v1" Alias="PersonalData"/></edmx:Reference>
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="1.0" xmlns:edmx="http://schemas.microsoft.com/ado/2007/06/edmx"
+	xmlns:m="http://schemas.microsoft.com/ado/2007/08/dataservices/metadata" xmlns:sap="http://www.sap.com/Protocols/SAPData">
+	<edmx:Reference
+		Uri="https://webidecp-s3td7fnnd5.dispatcher.hana.ondemand.com/destinations/S4X011_WebIDE_NonSSO/sap/opu/odata/IWFND/CATALOGSERVICE;v=2/Vocabularies(TechnicalName='%2FIWBEP%2FVOC_COMMON',Version='0001',SAP__Origin='LOCAL')/$value"
+		xmlns:edmx="http://docs.oasis-open.org/odata/ns/edmx"><edmx:Include Namespace="com.sap.vocabularies.Common.v1" Alias="Common"/></edmx:Reference>
+	<edmx:Reference
+		Uri="https://webidecp-s3td7fnnd5.dispatcher.hana.ondemand.com/destinations/S4X011_WebIDE_NonSSO/sap/opu/odata/IWFND/CATALOGSERVICE;v=2/Vocabularies(TechnicalName='%2FIWBEP%2FVOC_CAPABILITIES',Version='0001',SAP__Origin='LOCAL')/$value"
+		xmlns:edmx="http://docs.oasis-open.org/odata/ns/edmx"><edmx:Include Namespace="Org.OData.Capabilities.V1" Alias="Capabilities"/></edmx:Reference>
+	<edmx:Reference
+		Uri="https://webidecp-s3td7fnnd5.dispatcher.hana.ondemand.com/destinations/S4X011_WebIDE_NonSSO/sap/opu/odata/IWFND/CATALOGSERVICE;v=2/Vocabularies(TechnicalName='%2FIWBEP%2FVOC_COMMUNICATION',Version='0001',SAP__Origin='LOCAL')/$value"
+		xmlns:edmx="http://docs.oasis-open.org/odata/ns/edmx"><edmx:Include Namespace="com.sap.vocabularies.Communication.v1" Alias="Communication"/></edmx:Reference>
+	<edmx:Reference
+		Uri="https://webidecp-s3td7fnnd5.dispatcher.hana.ondemand.com/destinations/S4X011_WebIDE_NonSSO/sap/opu/odata/IWFND/CATALOGSERVICE;v=2/Vocabularies(TechnicalName='%2FIWBEP%2FVOC_AGGREGATION',Version='0001',SAP__Origin='LOCAL')/$value"
+		xmlns:edmx="http://docs.oasis-open.org/odata/ns/edmx"><edmx:Include Namespace="Org.OData.Aggregation.V1" Alias="Aggregation"/></edmx:Reference>
+	<edmx:Reference
+		Uri="https://webidecp-s3td7fnnd5.dispatcher.hana.ondemand.com/destinations/S4X011_WebIDE_NonSSO/sap/opu/odata/IWFND/CATALOGSERVICE;v=2/Vocabularies(TechnicalName='%2FIWBEP%2FVOC_PERSONALDATA',Version='0001',SAP__Origin='LOCAL')/$value"
+		xmlns:edmx="http://docs.oasis-open.org/odata/ns/edmx"><edmx:Include Namespace="com.sap.vocabularies.PersonalData.v1" Alias="PersonalData"/></edmx:Reference>
 	<edmx:DataServices m:DataServiceVersion="2.0">
-		<Schema xmlns="http://schemas.microsoft.com/ado/2008/09/edm" Namespace="API_CUSTOMER_RETURN_SRV" xml:lang="en" sap:schema-version="1">
+		<Schema Namespace="API_CUSTOMER_RETURN_SRV" xml:lang="en" sap:schema-version="1" xmlns="http://schemas.microsoft.com/ado/2008/09/edm">
 			<EntityType Name="A_CustomerReturnType" sap:label="Customer Return (API)" sap:content-version="1">
 				<Key><PropertyRef Name="CustomerReturn"/></Key><Property Name="CustomerReturn" Type="Edm.String" Nullable="false" MaxLength="10" sap:display-format="UpperCase" sap:label="Customer Return"/><Property Name="CustomerReturnType" Type="Edm.String" MaxLength="4" sap:display-format="UpperCase" sap:label="Customer Return Type"/><Property Name="SalesOrganization" Type="Edm.String" MaxLength="4" sap:display-format="UpperCase" sap:label="Sales Organization"/><Property Name="DistributionChannel" Type="Edm.String" MaxLength="2" sap:display-format="UpperCase" sap:label="Distribution Channel"/><Property Name="OrganizationDivision" Type="Edm.String" MaxLength="2" sap:display-format="UpperCase" sap:label="Division"/><Property Name="SalesGroup" Type="Edm.String" MaxLength="3" sap:display-format="UpperCase" sap:label="Sales group"/><Property Name="SalesOffice" Type="Edm.String" MaxLength="4" sap:display-format="UpperCase" sap:label="Sales office"/><Property Name="SalesDistrict" Type="Edm.String" MaxLength="6" sap:display-format="UpperCase" sap:label="Sales District"/><Property Name="SoldToParty" Type="Edm.String" MaxLength="10" sap:display-format="UpperCase" sap:label="Sold-To Party"/><Property Name="CreationDate" Type="Edm.DateTime" Precision="0" sap:display-format="Date" sap:label="Created on"
 					sap:quickinfo="Date on which the record was created" sap:creatable="false" sap:updatable="false"/><Property Name="CreatedByUser" Type="Edm.String" MaxLength="12" sap:display-format="UpperCase" sap:label="Created by"
@@ -290,7 +296,7 @@
 				<AssociationSet Name="assoc_70820E695D07C593DE1F6E8B1DC49CC5" Association="API_CUSTOMER_RETURN_SRV.assoc_70820E695D07C593DE1F6E8B1DC49CC5"
 					sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1"><End EntitySet="A_CustomerReturnProcessStep" Role="FromRole_assoc_70820E695D07C593DE1F6E8B1DC49CC5"/><End EntitySet="A_CustomerReturn" Role="ToRole_assoc_70820E695D07C593DE1F6E8B1DC49CC5"/></AssociationSet>
 			</EntityContainer>
-			<Annotations xmlns="http://docs.oasis-open.org/odata/ns/edm" Target="API_CUSTOMER_RETURN_SRV.API_CUSTOMER_RETURN_SRV_Entities">
+			<Annotations Target="API_CUSTOMER_RETURN_SRV.API_CUSTOMER_RETURN_SRV_Entities" xmlns="http://docs.oasis-open.org/odata/ns/edm">
 				<Annotation Term="Aggregation.ApplySupported">
 					<Record>
 						<PropertyValue Property="Transformations">
@@ -302,8 +308,8 @@
 						</PropertyValue><PropertyValue Property="Rollup" EnumMember="None"/></Record>
 				</Annotation>
 			</Annotations>
-			<Annotations xmlns="http://docs.oasis-open.org/odata/ns/edm"
-				Target="API_CUSTOMER_RETURN_SRV.API_CUSTOMER_RETURN_SRV_Entities/A_CustomerReturnValAddedSrvc">
+			<Annotations Target="API_CUSTOMER_RETURN_SRV.API_CUSTOMER_RETURN_SRV_Entities/A_CustomerReturnValAddedSrvc"
+				xmlns="http://docs.oasis-open.org/odata/ns/edm">
 				<Annotation Term="Capabilities.FilterRestrictions">
 					<Record>
 						<PropertyValue Property="NonFilterableProperties">
@@ -322,6 +328,10 @@
 						</PropertyValue>
 					</Record>
 				</Annotation>
-			</Annotations><atom:link xmlns:atom="http://www.w3.org/2005/Atom" rel="self" href="./sap/API_CUSTOMER_RETURN_SRV/$metadata"/><atom:link xmlns:atom="http://www.w3.org/2005/Atom" rel="latest-version" href="./sap/API_CUSTOMER_RETURN_SRV/$metadata"/></Schema>
+			</Annotations><atom:link rel="self"
+				href="https://webidecp-s3td7fnnd5.dispatcher.hana.ondemand.com/destinations/S4X011_WebIDE_NonSSO/sap/opu/odata/sap/API_CUSTOMER_RETURN_SRV/$metadata"
+				xmlns:atom="http://www.w3.org/2005/Atom"/><atom:link rel="latest-version"
+				href="https://webidecp-s3td7fnnd5.dispatcher.hana.ondemand.com/destinations/S4X011_WebIDE_NonSSO/sap/opu/odata/sap/API_CUSTOMER_RETURN_SRV/$metadata"
+				xmlns:atom="http://www.w3.org/2005/Atom"/></Schema>
 	</edmx:DataServices>
 </edmx:Edmx>

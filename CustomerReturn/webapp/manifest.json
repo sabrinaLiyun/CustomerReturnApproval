@@ -1,5 +1,5 @@
 {
-	"_version": "1.12.0",
+	"_version": "1.9.0",
 	"sap.app": {
 		"id": "cn.bosch.CustomerReturn",
 		"type": "application",
@@ -22,7 +22,7 @@
 		},
 		"sourceTemplate": {
 			"id": "sap.ui.ui5-template-plugin.1worklistmodule",
-			"version": "1.80.1"
+			"version": "1.60.28"
 		}
 	},
 	"sap.ui": {
@@ -49,15 +49,11 @@
 			"id": "app"
 		},
 		"dependencies": {
-			"minUI5Version": "1.66.0",
+			"minUI5Version": "1.42.0",
 			"libs": {
 				"sap.ui.core": {},
 				"sap.m": {},
-				"sap.f": {},
-				"sap.ushell": {},
-				"sap.collaboration": {
-					"lazy": true
-				}
+				"sap.f": {}
 			}
 		},
 		"contentDensities": {
@@ -74,15 +70,6 @@
 			"": {
 				"dataSource": "mainService",
 				"preload": true
-			}
-		},
-		"services": {
-			"ShellUIService": {
-				"factoryName": "sap.ushell.ui5service.ShellUIService",
-				"lazy": false,
-				"settings": {
-					"setTitle": "auto"
-				}
 			}
 		},
 		"routing": {

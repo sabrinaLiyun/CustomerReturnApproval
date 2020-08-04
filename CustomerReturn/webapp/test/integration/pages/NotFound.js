@@ -1,80 +1,82 @@
 sap.ui.define([
 	"sap/ui/test/Opa5",
 	"sap/ui/test/actions/Press",
-	"sap/ui/test/matchers/I18NText",
 	"./Common"
-], function (Opa5, Press, I18NText, Common) {
+], function(Opa5, Press, Common) {
 	"use strict";
 
-	var sObjectNotFoundView = "ObjectNotFound",
-		sNotFoundView = "NotFound";
-
 	Opa5.createPageObjects({
-		onTheNotFoundPage: {
-			baseClass: Common,
+		onTheNotFoundPage : {
+			baseClass : Common,
 
-			actions: {
+			actions : {
 
-				iPressTheObjectNotFoundShowWorklistLink: function () {
+				iWaitUntilISeeObjectNotFoundPage : function () {
 					return this.waitFor({
-						id: "link",
-						viewName: sObjectNotFoundView,
-						actions: new Press(),
-						errorMessage: "Did not find the link on the " + sObjectNotFoundView + " page"
+						id : "page",
+						viewName : "ObjectNotFound",
+						success : function (oPage) {
+							Opa5.assert.strictEqual(oPage.getTitle(), oPage.getModel("i18n").getProperty("objectTitle"), "the object text is shown as title");
+							Opa5.assert.strictEqual(oPage.getText(), oPage.getModel("i18n").getProperty("noObjectFoundText"), "the object not found text is shown");
+						},
+						errorMessage : "Did not display the object not found text"
 					});
 				},
 
-				iPressTheNotFoundShowWorklistLink: function () {
+				iWaitUntilISeeResourceNotFoundPage : function () {
 					return this.waitFor({
-						id: "link",
-						viewName: sNotFoundView,
-						actions: new Press(),
-						errorMessage: "Did not find the link on the " + sNotFoundView + " page"
+						id : "page",
+						viewName : "NotFound",
+						success : function (oPage) {
+							Opa5.assert.strictEqual(oPage.getTitle(), oPage.getModel("i18n").getProperty("notFoundTitle"), "the not found title is shown as title");
+							Opa5.assert.strictEqual(oPage.getText(), oPage.getModel("i18n").getProperty("notFoundText"), "the not found text is shown");
+						},
+						errorMessage : "Did not display the object not found text"
+					});
+				},
+
+				iPressTheObjectNotFoundShowWorklistLink : function () {
+					return this.waitFor({
+						id : "link",
+						viewName : "ObjectNotFound",
+						actions : new Press(),
+						errorMessage : "Did not find the link on the not found page"
+					});
+				},
+
+				iPressTheNotFoundShowWorklistLink : function () {
+					return this.waitFor({
+						id : "link",
+						viewName : "NotFound",
+						actions : new Press(),
+						errorMessage : "Did not find the link on the not found page"
 					});
 				}
 			},
 
-			assertions: {
+			assertions : {
 
-				iShouldSeeObjectNotFound: function () {
+				iShouldSeeObjectNotFound : function () {
 					return this.waitFor({
-						id: "page",
-						viewName: sObjectNotFoundView,
-						matchers: [
-							new I18NText({
-								key: "objectTitle",
-								propertyName: "title"
-							}),
-							new I18NText({
-								key: "noObjectFoundText",
-								propertyName: "text"
-							})
-						],
+						id : "page",
+						viewName : "ObjectNotFound",
 						success: function (oPage) {
-							Opa5.assert.ok(true, "The 'Object not found' text and title are displayed");
+							Opa5.assert.strictEqual(oPage.getTitle(), oPage.getModel("i18n").getProperty("objectTitle"), "the object text is shown as title");
+							Opa5.assert.strictEqual(oPage.getText(), oPage.getModel("i18n").getProperty("noObjectFoundText"), "the object not found text is shown");
 						},
-						errorMessage: "Did not display the 'Object not found' page"
+						errorMessage: "Did not display the object not found text"
 					});
 				},
 
-				iShouldSeeResourceNotFound: function () {
+				iShouldSeeResourceNotFound : function () {
 					return this.waitFor({
-						id: "page",
-						viewName: sNotFoundView,
-						matchers: [
-							new I18NText({
-								key: "notFoundTitle",
-								propertyName: "title"
-							}),
-							new I18NText({
-								key: "notFoundText",
-								propertyName: "text"
-							})
-						],
+						id : "page",
+						viewName : "NotFound",
 						success: function (oPage) {
-							Opa5.assert.ok(true, "The 'Object not found' text and title are displayed");
+							Opa5.assert.strictEqual(oPage.getTitle(), oPage.getModel("i18n").getProperty("notFoundTitle"), "the not found title is shown as title");
+							Opa5.assert.strictEqual(oPage.getText(), oPage.getModel("i18n").getProperty("notFoundText"), "the not found text is shown");
 						},
-						errorMessage: "Did not display the 'Object not found' page"
+						errorMessage: "Did not display the object not found text"
 					});
 				}
 

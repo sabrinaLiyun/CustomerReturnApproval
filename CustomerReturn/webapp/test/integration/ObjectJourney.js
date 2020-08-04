@@ -13,43 +13,37 @@ sap.ui.define([
 
 	opaTest("Should remember the first item", function (Given, When, Then) {
 		// Arrangements
-		Given.iStartMyFLPApp({
-			intent
-			: "CustomerReturn-display"
-		});
+		Given.iStartMyApp();
 
 		//Actions
-		When.onTheWorklistPage.iRememberTableItemAtPosition(1);
+		When.onTheWorklistPage.iRememberTheItemAtPosition(1);
 
 		// Assertions
 		Then.onTheWorklistPage.theTitleShouldDisplayTheTotalAmountOfItems();
 
 		// Cleanup
-		Then.iLeaveMyFLPApp();
+		Then.iTeardownMyApp();
 	});
 
 	opaTest("Should start the app with remembered item", function (Given, When, Then) {
 		// Arrangements
 		Given.iRestartTheAppWithTheRememberedItem({
-			intent: "CustomerReturn-display",
-			delay: 1000
+			delay: 1000,
+			autoWait: false
 		});
 
+		//Actions
+		When.onTheAppPage.iWaitUntilTheAppBusyIndicatorIsGone();
+
 		// Assertions
-		Then.onTheObjectPage.iShouldSeeTheRememberedObject().
+		Then.onTheObjectPage.iShouldSeeTheObjectViewsBusyIndicator().
+			and.theObjectViewsBusyIndicatorDelayIsRestored().
+			and.iShouldSeeTheRememberedObject().
 			and.theObjectViewShouldContainOnlyFormattedUnitNumbers();
-	});
-
-
-	opaTest("Should open the share menu and display the share buttons", function (Given, When, Then) {
-		// Actions
-		When.onTheObjectPage.iPressOnTheShareButton();
-
-		// Assertions
-		Then.onTheObjectPage.iShouldSeeTheShareEmailButton();
 
 		// Cleanup
-		Then.iLeaveMyFLPApp();
+		Then.iTeardownMyApp();
 	});
+
 
 });

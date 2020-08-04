@@ -13,9 +13,7 @@ sap.ui.define([
 
 	opaTest("Should see the resource not found page when changing to an invalid hash", function (Given, When, Then) {
 		//Arrangement
-		Given.iStartMyFLPApp({
-			intent: "CustomerReturn-display"
-		});
+		Given.iStartMyApp();
 
 		//Actions
 		When.onTheBrowser.iChangeTheHashToSomethingInvalid();
@@ -26,6 +24,7 @@ sap.ui.define([
 
 	opaTest("Clicking the 'Show my worklist' link on the 'Resource not found' page should bring me back to the worklist", function (Given, When, Then) {
 		//Actions
+		When.onTheAppPage.iWaitUntilTheAppBusyIndicatorIsGone();
 		When.onTheNotFoundPage.iPressTheNotFoundShowWorklistLink();
 
 		// Assertions
@@ -42,21 +41,18 @@ sap.ui.define([
 
 	opaTest("Clicking the back button should take me back to the not found page", function (Given, When, Then) {
 		//Actions
-		When.onTheBrowser.iGoBack();
+		When.onTheBrowser.iPressOnTheBackwardsButton();
 
 		// Assertions
 		Then.onTheNotFoundPage.iShouldSeeResourceNotFound();
 
 		// Cleanup
-		Then.iLeaveMyFLPApp();
+		Then.iTeardownMyApp();
 	});
 
 	opaTest("Should see the 'Object not found' page if an invalid object id has been called", function (Given, When, Then) {
 		//Arrangement
-		Given.iStartMyFLPApp({
-			intent: "CustomerReturn-display",
-			hash: "A_CustomerReturn/SomeInvalidObjectId"
-		});
+		Given.iStartMyApp({hash : "A_CustomerReturn/SomeInvalidObjectId"});
 
 		// Assertions
 		Then.onTheNotFoundPage.iShouldSeeObjectNotFound();
@@ -64,13 +60,14 @@ sap.ui.define([
 
 	opaTest("Clicking the 'Show my worklist' link on the 'Object not found' page should bring me back to the worklist", function (Given, When, Then) {
 		//Actions
+		When.onTheAppPage.iWaitUntilTheAppBusyIndicatorIsGone();
 		When.onTheNotFoundPage.iPressTheObjectNotFoundShowWorklistLink();
 
 		// Assertions
 		Then.onTheWorklistPage.iShouldSeeTheTable();
 
 		// Cleanup
-		Then.iLeaveMyFLPApp();
+		Then.iTeardownMyApp();
 	});
 
 });

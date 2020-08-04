@@ -1,7 +1,7 @@
 {
 	"run": [
 		{
-			"filePath": "/CustomerReturn/webapp/test/flpSandbox.html",
+			"filePath": "/CustomerReturn/webapp/index.html",
 			"previewMode": 1,
 			"dataMode": 1,
 			"workspace": "withoutWorkspace",
@@ -17,18 +17,18 @@
 					"paramActive": false
 				}
 			],
-			"hashParameter": "CustomerReturn-display",
+            "hashParameter": "",
 			"ui5ActiveVersion": "snapshot",
 			"ui5VerSource": null,
 			"isDefaultVersion": 1,
 			"_metadata": {
-				"id": "2888449",
+				"id": "6113568",
 				"runnerId": "webapprunner",
-				"displayName": "App in FLP Sandbox"
+				"displayName": "App"
 			}
 		},
 		{
-			"filePath": "/CustomerReturn/webapp/test/flpSandboxMockServer.html",
+			"filePath": "/CustomerReturn/webapp/test/mockServer.html",
 			"previewMode": 1,
 			"dataMode": 1,
 			"workspace": "withoutWorkspace",
@@ -44,14 +44,14 @@
 					"paramActive": false
 				}
 			],
-			"hashParameter": "CustomerReturn-display",
+			"hashParameter": "",
 			"ui5ActiveVersion": "snapshot",
 			"ui5VerSource": null,
 			"isDefaultVersion": 1,
 			"_metadata": {
-				"id": "5804489",
+				"id": "8254805",
 				"runnerId": "webapprunner",
-				"displayName": "App in FLP Sandbox (Mock Server)"
+				"displayName": "App (Mock Server)"
 			}
 		},
 		{
@@ -75,7 +75,7 @@
 				}
 			],
 			"_metadata": {
-				"id": "4882121",
+				"id": "2821247",
 				"runnerId": "webapprunner",
 				"displayName": "Unit Tests"
 			}
@@ -102,7 +102,7 @@
 			],
 			"hashParameter": "",
 			"_metadata": {
-				"id": "8376626",
+				"id": "8055335",
 				"runnerId": "webapprunner",
 				"displayName": "OPA Tests"
 			}
@@ -129,36 +129,9 @@
 			],
 			"hashParameter": "",
 			"_metadata": {
-				"id": "9446024",
+				"id": "2123997",
 				"runnerId": "webapprunner",
 				"displayName": "Test Suite (Unit, OPA)"
-			}
-		},
-		{
-			"filePath": "/CustomerReturn/webapp/Component.js",
-			"previewMode": 1,
-			"dataMode": 1,
-			"workspace": "withoutWorkspace",
-			"ui5ActiveVersion": "snapshot",
-			"ui5VerSource": null,
-			"isDefaultVersion": 1,
-			"urlParameters": [
-				{
-					"paramName": "",
-					"paramValue": "",
-					"paramActive": false
-				},
-				{
-					"paramName": "",
-					"paramValue": "",
-					"paramActive": false
-				}
-			],
-			"hashParameter": "",
-			"_metadata": {
-				"id": "9609961",
-				"runnerId": "fiorirunner",
-				"displayName": "App as Fiori Component"
 			}
 		}
 	]
