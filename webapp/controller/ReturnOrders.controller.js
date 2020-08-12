@@ -6,11 +6,11 @@ sap.ui.define(["sap/ui/core/mvc/Controller",
 	'sap/m/MessageToast',
 	"sap/ui/model/Filter",
 	"sap/ui/model/FilterOperator"
-], function(BaseController, MessageBox, Utilities, History, UIComponent,MessageToast, Filter, FilterOperator) {
+], function (BaseController, MessageBox, Utilities, History, UIComponent, MessageToast, Filter, FilterOperator) {
 	"use strict";
 
 	return BaseController.extend("SAPUI5MyReturnOrder.MyReturnOrderAPP.controller.ReturnOrders", {
-		handleRouteMatched: function(oEvent) {
+		handleRouteMatched: function (oEvent) {
 			var sAppId = "App1";
 
 			var oParams = {};
@@ -20,7 +20,7 @@ sap.ui.define(["sap/ui/core/mvc/Controller",
 
 			} else {
 				if (this.getOwnerComponent().getComponentData()) {
-					var patternConvert = function(oParam) {
+					var patternConvert = function (oParam) {
 						if (Object.keys(oParam).length !== 0) {
 							for (var prop in oParam) {
 								if (prop !== "sourcePrototype" && prop.includes("Set")) {
@@ -46,7 +46,7 @@ sap.ui.define(["sap/ui/core/mvc/Controller",
 			}
 
 		},
-		_onFioriListReportTableItemPress: function(oEvent) {
+		_onFioriListReportTableItemPress: function (oEvent) {
 
 			var oBindingContext = oEvent.getParameter("listItem").getBindingContext().getObject();
 
@@ -60,11 +60,11 @@ sap.ui.define(["sap/ui/core/mvc/Controller",
 			var oRouter = UIComponent.getRouterFor(this);
 			oRouter.navTo("RouteReturnOrderItems", {
 				OrderNo: oBindingContext.CustomerReturn
-			
+
 			});
 
 		},
-		doNavigate: function(sRouteName, oBindingContext, fnPromiseResolve, sViaRelation) {
+		doNavigate: function (sRouteName, oBindingContext, fnPromiseResolve, sViaRelation) {
 			var sPath = (oBindingContext) ? oBindingContext.getPath() : null;
 			var oModel = (oBindingContext) ? oBindingContext.getModel() : null;
 
@@ -79,7 +79,8 @@ sap.ui.define(["sap/ui/core/mvc/Controller",
 			var sMasterContext = this.sMasterContext ? this.sMasterContext : sPath;
 
 			if (sEntityNameSet !== null) {
-				sNavigationPropertyName = sViaRelation || this.getOwnerComponent().getNavigationPropertyForNavigationWithContext(sEntityNameSet, sRouteName);
+				sNavigationPropertyName = sViaRelation || this.getOwnerComponent().getNavigationPropertyForNavigationWithContext(sEntityNameSet,
+					sRouteName);
 			}
 			if (sNavigationPropertyName !== null && sNavigationPropertyName !== undefined) {
 				if (sNavigationPropertyName === "") {
@@ -88,7 +89,7 @@ sap.ui.define(["sap/ui/core/mvc/Controller",
 						masterContext: sMasterContext
 					}, false);
 				} else {
-					oModel.createBindingContext(sNavigationPropertyName, oBindingContext, null, function(bindingContext) {
+					oModel.createBindingContext(sNavigationPropertyName, oBindingContext, null, function (bindingContext) {
 						if (bindingContext) {
 							sPath = bindingContext.getPath();
 							if (sPath.substring(0, 1) === "/") {
@@ -118,7 +119,7 @@ sap.ui.define(["sap/ui/core/mvc/Controller",
 			}
 
 		},
-		_onFioriListReportTableUpdateFinished: function(oEvent) {
+		_onFioriListReportTableUpdateFinished: function (oEvent) {
 			var oTable = oEvent.getSource();
 			var oHeaderbar = oTable.getAggregation("headerToolbar");
 			if (oHeaderbar && oHeaderbar.getAggregation("content")[1]) {
@@ -131,21 +132,21 @@ sap.ui.define(["sap/ui/core/mvc/Controller",
 			}
 
 		},
-		_onFioriListReportActionButtonPress: function(oEvent) {
+		_onFioriListReportActionButtonPress: function (oEvent) {
 
 			var oBindingContext = oEvent.getSource().getBindingContext();
 
-			return new Promise(function(fnResolve) {
+			return new Promise(function (fnResolve) {
 
 				this.doNavigate("RouteCreateReturnOrder", oBindingContext, fnResolve, "");
-			}.bind(this)).catch(function(err) {
+			}.bind(this)).catch(function (err) {
 				if (err !== undefined) {
 					MessageBox.error(err.message);
 				}
 			});
 
 		},
-		onInit: function() {
+		onInit: function () {
 			this.oRouter = sap.ui.core.UIComponent.getRouterFor(this);
 			this.oRouter.getTarget("TargetReturnOrders").attachDisplay(jQuery.proxy(this.handleRouteMatched, this));
 			this.oFilterBar = null;
@@ -156,7 +157,7 @@ sap.ui.define(["sap/ui/core/mvc/Controller",
 			// this.oFilterBar.setBasicSearch(oBasicSearch);
 
 		},
-		onExit: function() {
+		onExit: function () {
 
 			// to destroy templates for bound aggregations when templateShareable is true on exit to prevent duplicateId issue
 			var aControls = [{
@@ -186,11 +187,27 @@ sap.ui.define(["sap/ui/core/mvc/Controller",
 			// build filter array OveralApprovalStatus
 			var aFilter = [];
 			//var sQuery = oEvent.getParameter("query");
-			var keys = this.byId("comboApprovalSta").getSelectedKeys(); //["00", "01"]
-			for (i = 0; i <= keys.length; i++) {
-				var key = keys[i];
-				if (key) {
-					aFilter.push(new Filter("OverialApprovalSta", FilterOperator.Contains, key));
+			var keysAppSta = this.byId("comboApprovalSta").getSelectedKeys(); //["00", "01"]
+			for (i = 0; i <= keysAppSta.length; i++) {
+				var Appsta_key = keysAppSta[i];
+				if (Appsta_key) {
+					aFilter.push(new Filter("OverialApprovalSta", FilterOperator.Contains, Appsta_key));
+				}
+			}
+			// Sales Org mulcomSalesOrg
+			var keysSalesOrg = this.byId("mulcomSalesOrg").getSelectedKeys(); //["00", "01"]
+			for (i = 0; i <= keysSalesOrg.length; i++) {
+				var keysSalesOrg_key = keysSalesOrg[i];
+				if (keysSalesOrg_key) {
+					aFilter.push(new Filter("SalesOrganization", FilterOperator.Contains, keysSalesOrg_key));
+				}
+			}
+			// Sales Number mulcomCustomer  Sold to Party.
+			var keysCustomer = this.byId("mulcomCustomer").getSelectedKeys(); //["00", "01"]
+			for (i = 0; i <= keysCustomer.length; i++) {
+				var keysCustomer_key = keysCustomer[i];
+				if (keysCustomer_key) {
+					aFilter.push(new Filter("SoldToParty", FilterOperator.Contains, keysCustomer_key));
 				}
 			}
 			// Creation Date as Filter
@@ -205,15 +222,15 @@ sap.ui.define(["sap/ui/core/mvc/Controller",
 			}
 			// Reponse Date as Filter
 
-			var lvResponseDate = this.byId("datePResponseDate")._getInputValue();
+			// var lvResponseDate = this.byId("datePResponseDate")._getInputValue();
 
-			if (lvResponseDate) {
-				lvYear = lvResponseDate.slice(0, 4);
-				lvMonth = lvResponseDate.slice(4, 6);
-				lvDay = lvResponseDate.slice(6, 8);
-				lvSAPDateFormate = lvYear + '-' + lvMonth + '-' + lvDay;
-				aFilter.push(new Filter("ResponseDate", FilterOperator.EQ, lvSAPDateFormate));
-			}
+			// if (lvResponseDate) {
+			// 	lvYear = lvResponseDate.slice(0, 4);
+			// 	lvMonth = lvResponseDate.slice(4, 6);
+			// 	lvDay = lvResponseDate.slice(6, 8);
+			// 	lvSAPDateFormate = lvYear + '-' + lvMonth + '-' + lvDay;
+			// 	aFilter.push(new Filter("ResponseDate", FilterOperator.EQ, lvSAPDateFormate));
+			// }
 
 			// aFilter.push(New Filter("CreationDate", FilterOperator.EQ ,))
 			// for (i = 0; i < cars.length; i++) { 

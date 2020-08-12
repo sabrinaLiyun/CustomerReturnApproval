@@ -17,27 +17,34 @@
 			<f:header>
 				<f:DynamicPageHeader pinnable="true">
 					<f:content>
-						
 						<filterbar:FilterBar id="ListReportFilterBar" useToolbar="false" showGoOnFB="true" searchEnabled="true" search="onSearch">
 							<filterbar:filterItems>
 								<filterbar:FilterItem label="Return Order"
 									name="Fiori_ListReport_ListReport_0-filterBars-Fiori_ListReport_FilterBar-1-filters-sap_ui_comp_filterbar_FilterItem">
 									<filterbar:control>
-											<SearchField id="searchCustomerReturn" width="25%" search=".onBasecSearch" placeholder="Search for Customer Return Order"></SearchField>
+										<SearchField id="searchCustomerReturn" width="25%" search=".onBasecSearch" placeholder="Search for Customer Return Order"/>
 									</filterbar:control>
 								</filterbar:FilterItem>
-								
-								<filterbar:FilterItem label="Creation Date" id="datePCreateDate"
+								<filterbar:FilterItem label="Sales Org" id="filterSalesOrg"
 									name="Fiori_ListReport_ListReport_0-filterBars-Fiori_ListReport_FilterBar-1-filters-sap_ui_comp_filterbar_FilterItem-1595556875050---0">
 									<filterbar:control>
-										<DatePicker width="auto" id="datePCreateDatep" displayFormat="medium" required="false" valueStateText="Invalid entry" enabled="true"
-											visible="true" valueFormat="yyyyMMdd"/>
+										<MultiComboBox id="mulcomSalesOrg" width="400px" items="{ path: 'zreturn>/CustomerProfile', sorter: { path: 'SalesOrg' } }">
+											<core:Item key="{zreturn>SalesOrg} " text="{zreturn>SalesOrg}"/>
+										</MultiComboBox>
 									</filterbar:control>
 								</filterbar:FilterItem>
-								<filterbar:FilterItem label="Response Date"
+								<filterbar:FilterItem label="Customer Number"
 									name="Fiori_ListReport_ListReport_0-filterBars-Fiori_ListReport_FilterBar-1-filters-sap_ui_comp_filterbar_FilterItem-1595556941578---0">
 									<filterbar:control>
-										<DatePicker width="auto" displayFormat="medium" id="datePResponseDate" required="false" valueStateText="Invalid entry" enabled="true"
+										<MultiComboBox id="mulcomCustomer" width="400px" items="{ path: 'zreturn>/CustomerProfile', sorter: { path: 'CusomterID' } }">
+											<core:Item key="{zreturn>CusomterID}" text="{zreturn>CusomterID}"/>
+										</MultiComboBox>
+									</filterbar:control>
+								</filterbar:FilterItem>
+								<filterbar:FilterItem label="Creation Date" id="datePCreateDate"
+									name="Fiori_ListReport_ListReport_0-filterBars-Fiori_ListReport_FilterBar-1-filters-sap_ui_comp_filterbar_FilterItem-1595556875050---1">
+									<filterbar:control>
+										<DatePicker width="auto" id="datePCreateDatep" displayFormat="medium" required="false" valueStateText="Invalid entry" enabled="true"
 											visible="true" valueFormat="yyyyMMdd"/>
 									</filterbar:control>
 								</filterbar:FilterItem>
@@ -67,16 +74,7 @@
 							items="{path: '/CustomerREturn', sorter: { path: 'CustomerReturn', descending: true }}">
 							<headerToolbar>
 								<OverflowToolbar design="Transparent">
-									<content>
-										<Title textAlign="Begin" text="Objects"/>
-										<Title text="(1)"/>
-										<ToolbarSpacer/>
-										<Button text="Create New Return Order" iconFirst="false" type="Transparent" enabled="true" press="_onFioriListReportActionButtonPress">
-											<layoutData>
-												<OverflowToolbarLayoutData moveToOverflow="true"/>
-											</layoutData>
-										</Button>
-									</content>
+									<content></content>
 								</OverflowToolbar>
 							</headerToolbar>
 							<columns>
@@ -92,10 +90,20 @@
 								</Column>
 								<Column width="auto" minScreenWidth="Phone">
 									<header>
-										<Text text="Customer Number" width="auto"/>
+										<Text text="Cistribution Channel" width="auto"/>
 									</header>
 								</Column>
 								<Column width="auto" minScreenWidth="Phone">
+									<header>
+										<Text text="Division" width="auto"/>
+									</header>
+								</Column>
+								<Column width="auto" minScreenWidth="Tablet" demandPopin="true">
+									<header>
+										<Text text="Customer Number" width="auto"/>
+									</header>
+								</Column>
+								<Column width="auto" minScreenWidth="Tablet" demandPopin="true">
 									<header>
 										<Text text="Customer Name" width="auto"/>
 									</header>
@@ -112,7 +120,7 @@
 								</Column>
 								<Column width="auto" minScreenWidth="Tablet" demandPopin="true">
 									<header>
-										<Text text="Status" width="auto"/>
+										<Text text="Approval Status" width="auto"/>
 									</header>
 								</Column>
 							</columns>
@@ -121,6 +129,8 @@
 									<cells>
 										<Text text="{CustomerReturn}"/>
 										<Text text="{SalesOrganization}"/>
+										<Text text="{DistributionChannel}"/>
+										<Text text="{OrganizationDivision}"/>
 										<Text text="{SoldToParty}"/>
 										<Text text="{CustomerName}"/>
 										<ObjectStatus text="{path: 'CreationDate', type: 'sap.ui.model.type.Date', formatOptions: {pattern: 'yyyy/MM/dd' }}"/>
