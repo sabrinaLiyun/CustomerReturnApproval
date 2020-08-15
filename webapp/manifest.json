@@ -38,7 +38,6 @@
 			"version": "1.40.12"
 		}
 	},
-
 	"sap.ui": {
 		"technology": "UI5",
 		"icons": {
@@ -55,7 +54,6 @@
 			"phone": true
 		}
 	},
-
 	"sap.ui5": {
 		"rootView": {
 			"viewName": "SAPUI5MyReturnOrder.MyReturnOrderAPP.view.ReturnOrders",
@@ -116,12 +114,13 @@
 				"dataSource": "API_CUSTOMER_RETURN_SRV",
 				"preload": true
 			}
-
 		},
 		"resources": {
-			"css": [{
-				"uri": "css/style.css"
-			}]
+			"css": [
+				{
+					"uri": "css/style.css"
+				}
+			]
 		},
 		"routing": {
 			"config": {
@@ -133,21 +132,21 @@
 				"controlId": "ReturnOrder",
 				"clearControlAggregation": false
 			},
-			"routes": [{
+			"routes": [
+				{
 					"name": "RouteReturnOrders",
 					"pattern": "ReturnOrders",
-					"target": ["TargetReturnOrders"]
+					"target": [
+						"TargetReturnOrders"
+					]
 				},
-
 				{
-
 					"name": "RouteReturnOrderItems",
-					"pattern": "ReturnOrderItems/{OrderNo}",
+					"pattern": "ReturnOrderItems/{orderNo}/{salesOrg}/{Channel}/{division}/{customerNumber}/{customerName}/{creationDate}",
 					"target": [
 						"TargetReturnOrderItems"
 					]
 				},
-
 				{
 					"name": "RouteCreateReturnOrder",
 					"pattern": "CreateReturnOrder/:context:",
@@ -155,7 +154,6 @@
 						"TargetCreateReturnOrder"
 					]
 				}
-
 			],
 			"targets": {
 				"TargetReturnOrders": {

@@ -48,19 +48,7 @@
 											visible="true" valueFormat="yyyyMMdd"/>
 									</filterbar:control>
 								</filterbar:FilterItem>
-								<filterbar:FilterItem label="Status"
-									name="Fiori_ListReport_ListReport_0-filterBars-Fiori_ListReport_FilterBar-1-filters-Fiori_ListReport_ComboBoxFilter-1595557051832---0">
-									<filterbar:control>
-										<MultiComboBox id="comboApprovalSta">
-											<items>
-												<core:Item key="00" text="Waiting for Approval"/>
-												<core:Item key="01" text="Approved"/>
-												<core:Item key="02" text="Rejected"/>
-												<core:Item key="03" text="Partially Approved"/>
-											</items>
-										</MultiComboBox>
-									</filterbar:control>
-								</filterbar:FilterItem>
+			
 							</filterbar:filterItems>
 						</filterbar:FilterBar>
 					</f:content>
@@ -69,9 +57,14 @@
 			<f:content>
 				<VBox fitContainer="true">
 					<items>
+	<!--					<Table width="100%" growing="true" id="TabCustomerReturn" growingScrollToLoad="true" growingThreshold="25"
+							itemPress="_onFioriListReportTableItemPress" updateFinished="_onFioriListReportTableUpdateFinished"
+							items="{ path: '/CustomerREturn', sorter: { path: 'CustomerReturn', descending: true } ,
+							         filters: [{path: 'OverialApprovalSta', operator: 'Contains', value1: '00'}] }                                  >-->
 						<Table width="100%" growing="true" id="TabCustomerReturn" growingScrollToLoad="true" growingThreshold="25"
 							itemPress="_onFioriListReportTableItemPress" updateFinished="_onFioriListReportTableUpdateFinished"
-							items="{path: '/CustomerREturn', sorter: { path: 'CustomerReturn', descending: true }}">
+							items="{path: '/CustomerREturn', sorter: { path: 'CustomerReturn', descending: true },
+							         filters: [{path: 'OverialApprovalSta', operator: 'Contains', value1: '00'}] }">
 							<headerToolbar>
 								<OverflowToolbar design="Transparent">
 									<content></content>
@@ -113,16 +106,16 @@
 										<Text text="Creation Date" width="auto"/>
 									</header>
 								</Column>
-								<Column width="auto" minScreenWidth="Tablet" demandPopin="true">
-									<header>
-										<Text text="Response Date" width="auto"/>
-									</header>
-								</Column>
-								<Column width="auto" minScreenWidth="Tablet" demandPopin="true">
+								<!--<Column width="auto" minScreenWidth="Tablet" demandPopin="true">-->
+								<!--	<header>-->
+								<!--		<Text text="Response Date" width="auto"/>-->
+								<!--	</header>-->
+								<!--</Column>-->
+	<!--							<Column width="auto" minScreenWidth="Tablet" demandPopin="true">
 									<header>
 										<Text text="Approval Status" width="auto"/>
 									</header>
-								</Column>
+								</Column>-->
 							</columns>
 							<items>
 								<ColumnListItem type="Navigation">
@@ -134,8 +127,8 @@
 										<Text text="{SoldToParty}"/>
 										<Text text="{CustomerName}"/>
 										<ObjectStatus text="{path: 'CreationDate', type: 'sap.ui.model.type.Date', formatOptions: {pattern: 'yyyy/MM/dd' }}"/>
-										<ObjectStatus text="{path: 'ResponseDate', type: 'sap.ui.model.type.Date', formatOptions: {pattern: 'yyyy/MM/dd' }}"/>
-										<ObjectStatus id="ApprovalStatus" text="{ApprovalStatusDesc}"/>
+										<!--<ObjectStatus text="{path: 'ResponseDate', type: 'sap.ui.model.type.Date', formatOptions: {pattern: 'yyyy/MM/dd' }}"/>-->
+										<!--<ObjectStatus id="ApprovalStatus" text="{ApprovalStatusDesc}"/>-->
 									</cells>
 								</ColumnListItem>
 							</items>

@@ -44,6 +44,13 @@ sap.ui.define(["sap/ui/core/mvc/Controller",
 				};
 				this.getView().bindObject(oPath);
 			}
+			
+							// this.refresh();
+				// var oTable = this.byId("TabCustomerReturn");
+				// var oBinding = oTable.getBinding("items");
+				// var overView = this.getView().getModel("zreturn");
+				// overView.refresh();
+				this.onSearch();
 
 		},
 		_onFioriListReportTableItemPress: function (oEvent) {
@@ -57,10 +64,24 @@ sap.ui.define(["sap/ui/core/mvc/Controller",
 					MessageBox.error(err.message);
 				}
 			});*/
+			// var salesArea = oBindingContext.SalesOrganization +  "/" +
+			//                 oBindingContext.OrganizationDivision + "/" + 
+			//                 oBindingContext.DistributionChannel ;
+			var lvYear = oBindingContext.CreationDate.getFullYear();
+			var lvMonth = oBindingContext.CreationDate.getMonth() + 1;
+			var lvDay = oBindingContext.CreationDate.getUTCDate();
+			var lvSAPDateFormate = lvYear  + "-" + lvMonth + "-" +  lvDay;
+			
+
 			var oRouter = UIComponent.getRouterFor(this);
 			oRouter.navTo("RouteReturnOrderItems", {
-				OrderNo: oBindingContext.CustomerReturn
-
+				orderNo: oBindingContext.CustomerReturn,
+				salesOrg: oBindingContext.SalesOrganization,
+				Channel: oBindingContext.DistributionChannel,
+				division: oBindingContext.OrganizationDivision,
+				customerNumber: oBindingContext.SoldToParty,
+				customerName: oBindingContext.CustomerName,
+			    creationDate : lvSAPDateFormate
 			});
 
 		},
@@ -155,6 +176,14 @@ sap.ui.define(["sap/ui/core/mvc/Controller",
 			// 	showSearchButton: true
 			// });
 			// this.oFilterBar.setBasicSearch(oBasicSearch);
+			// var aFilter = [];
+			// var Appstakey = "00";
+			// if (Appstakey) {
+			// 	aFilter.push(new Filter("OverialApprovalSta", FilterOperator.Contains, Appstakey));
+			// }
+			// var oTable = this.byId("TabCustomerReturn");
+			// var oBinding = oTable.getBinding("items");
+			// oBinding.filter(aFilter);
 
 		},
 		onExit: function () {
@@ -187,13 +216,11 @@ sap.ui.define(["sap/ui/core/mvc/Controller",
 			// build filter array OveralApprovalStatus
 			var aFilter = [];
 			//var sQuery = oEvent.getParameter("query");
-			var keysAppSta = this.byId("comboApprovalSta").getSelectedKeys(); //["00", "01"]
-			for (i = 0; i <= keysAppSta.length; i++) {
-				var Appsta_key = keysAppSta[i];
-				if (Appsta_key) {
-					aFilter.push(new Filter("OverialApprovalSta", FilterOperator.Contains, Appsta_key));
-				}
-			}
+			// var keysAppSta = this.byId("comboApprovalSta").getSelectedKeys(); //["00", "01"]
+			// for (i = 0; i <= keysAppSta.length; i++) {
+
+			// }
+			// }
 			// Sales Org mulcomSalesOrg
 			var keysSalesOrg = this.byId("mulcomSalesOrg").getSelectedKeys(); //["00", "01"]
 			for (i = 0; i <= keysSalesOrg.length; i++) {
