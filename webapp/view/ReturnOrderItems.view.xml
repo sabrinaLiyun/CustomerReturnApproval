@@ -8,7 +8,7 @@
 							<Button type="Back" press="_onPageNavButtonPress"/>
 						</contentLeft>
 						<contentMiddle>
-							<Title text=""/>
+							<Title text="Customer Return Order Items"/>
 						</contentMiddle>
 						<contentRight/>
 					</Bar>
@@ -48,18 +48,18 @@
 			</VBox>
 		</uxap:headerContent>
 		<uxap:sections>
-			<uxap:ObjectPageSection>
+			<uxap:ObjectPageSection showTitle="false">
 				<uxap:subSections>
-					<uxap:ObjectPageSubSection title="Item Info">
+					<uxap:ObjectPageSubSection title="Hidden Title">
 						<uxap:blocks>
-							<Table id="idItemTable" width="auto" noDataText="No data" mode="None" items="{zreturn>/CustomerReturnItem}" showSeparators="All" growing="true" growingThreshold="20" growingScrollToLoad="true" updateFinished="_onFioriListReportTableUpdateFinished" class="sapUiResponsiveMargin">
-								<infoToolbar>
-									<Toolbar width="100%" height="auto" design="Auto" visible="false" enabled="true">
-										<content>
-											<Label text="Label" design="Standard" width="100%" required="false" textAlign="Begin" textDirection="Inherit" visible="true"/>
-										</content>
-									</Toolbar>
-								</infoToolbar>
+							<Table id="idItemTable" width="auto" noDataText="No data" mode="None" items="{zreturn>/CustomerReturnItem}" showSeparators="All" growing="true" growingThreshold="20" growingScrollToLoad="true" updateFinished="_onFioriListReportTableUpdateFinished">
+								<!--<infoToolbar>-->
+								<!--	<Toolbar width="100%" height="auto" design="Auto" visible="false" enabled="true">-->
+								<!--		<content>-->
+								<!--			<Label text="Label" design="Standard" width="100%" required="false" textAlign="Begin" textDirection="Inherit" visible="true"/>-->
+								<!--		</content>-->
+								<!--	</Toolbar>-->
+								<!--</infoToolbar>-->
 								<headerToolbar>
 									<OverflowToolbar width="auto" height="auto" design="Transparent" visible="true" enabled="true">
 										<content>
@@ -142,7 +142,7 @@
 												</buttons>
 											</RadioButtonGroup>
 											<ComboBox id="ComboxRejReason" width="400px" items="{ path: 'zreturn>/RejectText', templateShareable:false , sorter: { path: 'SalesDocumentRjcnReason' } }" showSecondaryValues="true" enabled="false" change="combRejectReasonChange">
-												<core:Item key="{zreturn>SalesDocumentRjcnReason}" text="{zreturn>SalesDocumentRjcnReason}  -  {zreturn>SalesDocumentRjcnReasonName}  "/>
+												<core:Item key="{zreturn>SalesDocumentRjcnReason}" text="{zreturn>SalesDocumentRjcnReason} - {zreturn>SalesDocumentRjcnReasonName} "/>
 											</ComboBox>
 										</cells>
 									</ColumnListItem>
@@ -152,17 +152,18 @@
 					</uxap:ObjectPageSubSection>
 				</uxap:subSections>
 			</uxap:ObjectPageSection>
-			
 		</uxap:sections>
 		<uxap:footer>
-						<OverflowToolbar width="100%" height="46px" design="Auto" enabled="true" visible="true">
-					    <content>
-						<ToolbarSpacer width=""/>
-						<Button type="Emphasized" iconFirst="true" width="auto" enabled="true" visible="true" iconDensityAware="false" text="Submit" press =  "onSave" />
-						<Button text="Cancel" type="Default" iconFirst="true" width="auto" enabled="true" visible="true" iconDensityAware="false" press="onCancel"/>
-					</content>
-				</OverflowToolbar>
+			<OverflowToolbar width="100%" height="46px" design="Auto" enabled="true" visible="true">
+				<content>
+					<Button icon="sap-icon://alert" text="{= ${message>/}.length }" visible="{= ${message>/}.length &gt; 0 }" type="Emphasized" press="onMessagePopoverPress"/>
+					<ToolbarSpacer/>
+					<ToolbarSpacer width=""/>
+					<Button type="Emphasized" iconFirst="true" id = "btSave" width="auto" enabled="true" visible="true" iconDensityAware="false" text="Submit" press="onSave"/>
+					<Button text="Cancel" type="Default" iconFirst="true" width="auto" enabled="true" visible="true" iconDensityAware="false" press="onCancel"/>
+					<Button type="Reject" text="Error" press="onErrorbuttonPress"/>
+				</content>
+			</OverflowToolbar>
 		</uxap:footer>
 	</uxap:ObjectPageLayout>
-	
 </mvc:View>

@@ -112,7 +112,7 @@
 					"defaultCountMode": "Request"
 				},
 				"dataSource": "API_CUSTOMER_RETURN_SRV",
-				"preload": true
+				"preload": false
 			}
 		},
 		"resources": {
