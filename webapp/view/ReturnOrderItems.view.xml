@@ -157,7 +157,7 @@
 		<uxap:footer>
 			<OverflowToolbar width="100%" height="46px" design="Auto" enabled="true" visible="true">
 				<content>
-					<Button icon="sap-icon://alert" text="{= ${message>/}.length }" visible="{= ${message>/}.length &gt; 0 }" type="Emphasized" press="onMessagePopoverPress"/>
+					<Button icon="sap-icon://alert" id = "btMessagePopover" text="{= ${message>/}.length }" visible="{= ${message>/}.length &gt; 0 }" type="Emphasized" press="onMessagePopoverPress"/>
 					<ToolbarSpacer/>
 					<ToolbarSpacer width=""/>
 					<Button type="Emphasized" iconFirst="true" id = "btSave" width="auto" enabled="true" visible="true" iconDensityAware="false" text="Submit" press="onSave"/>

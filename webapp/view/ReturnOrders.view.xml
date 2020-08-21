@@ -49,7 +49,6 @@
 											visible="true" valueFormat="yyyyMMdd"/>
 									</filterbar:control>
 								</filterbar:FilterItem>
-			
 							</filterbar:filterItems>
 						</filterbar:FilterBar>
 					</f:content>
@@ -58,17 +57,20 @@
 			<f:content>
 				<VBox fitContainer="true">
 					<items>
-	<!--					<Table width="100%" growing="true" id="TabCustomerReturn" growingScrollToLoad="true" growingThreshold="25"
+						<!--					<Table width="100%" growing="true" id="TabCustomerReturn" growingScrollToLoad="true" growingThreshold="25"
 							itemPress="_onFioriListReportTableItemPress" updateFinished="_onFioriListReportTableUpdateFinished"
 							items="{ path: '/CustomerREturn', sorter: { path: 'CustomerReturn', descending: true } ,
 							         filters: [{path: 'OverialApprovalSta', operator: 'Contains', value1: '00'}] }                                  >-->
 						<Table width="100%" growing="true" id="TabCustomerReturn" growingScrollToLoad="true" growingThreshold="25"
 							itemPress="_onFioriListReportTableItemPress" updateFinished="_onFioriListReportTableUpdateFinished"
-							items="{path: '/CustomerREturn', sorter: { path: 'CustomerReturn', descending: true },
-							         filters: [{path: 'OverialApprovalSta', operator: 'Contains', value1: '00'}] }">
+							items="{path: '/CustomerREturn', sorter: { path: 'CustomerReturn', descending: true }, filters: [{path: 'OverialApprovalSta', operator: 'Contains', value1: '00'}] }">
 							<headerToolbar>
-								<OverflowToolbar design="Transparent">
-									<content></content>
+								<OverflowToolbar width="auto" height="auto" design="Transparent" visible="true" enabled="true">
+									<content>
+										<Title text="ReturnOrders" titleStyle="Auto" width="auto" textAlign="Begin" visible="true" wrapping="false"/>
+										<Title text="(1)"/>
+										<ToolbarSpacer width=""/>
+									</content>
 								</OverflowToolbar>
 							</headerToolbar>
 							<columns>
@@ -112,7 +114,7 @@
 								<!--		<Text text="Response Date" width="auto"/>-->
 								<!--	</header>-->
 								<!--</Column>-->
-	<!--							<Column width="auto" minScreenWidth="Tablet" demandPopin="true">
+								<!--							<Column width="auto" minScreenWidth="Tablet" demandPopin="true">
 									<header>
 										<Text text="Approval Status" width="auto"/>
 									</header>
@@ -141,7 +143,6 @@
 				<OverflowToolbar>
 					<content>
 						<ToolbarSpacer/>
-						
 					</content>
 				</OverflowToolbar>
 			</f:footer>
