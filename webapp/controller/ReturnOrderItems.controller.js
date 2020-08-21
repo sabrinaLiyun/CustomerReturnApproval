@@ -127,7 +127,7 @@ sap.ui.define([
 				/*= oEvent.getSource().getBindingContext();*/
 				this.onClear();
 				this.byId("btSave").setBusy(false);
-				
+
 				return new Promise(function (fnResolve) {
 					this.doNavigate("RouteReturnOrders", oBindingContext, fnResolve, "");
 				}.bind(this)).catch(function (err) {
@@ -392,7 +392,16 @@ sap.ui.define([
 				if (conNotPassValue === "") {
 					return "Passed";
 				} else {
-					this._getMessagePopover().openBy(this.byId("btMessagePopover"));
+					var btMessagePop = this.byId("btMessagePopover");
+					btMessagePop.setVisible(true);
+					var that = this;
+					btMessagePop.addEventDelegate({
+						"onAfterRendering": function () {
+							that._getMessagePopover().openBy(btMessagePop);
+						}
+					}, this);
+					// this.byId("btMessagePopover").setVisible(true);
+					// this._getMessagePopover().openBy(this.byId("btMessagePopover"));
 					return "Null";
 				}
 			},
