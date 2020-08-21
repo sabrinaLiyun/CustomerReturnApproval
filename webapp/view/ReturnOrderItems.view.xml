@@ -135,10 +135,11 @@
 											<Text text="{zreturn>RequestedQuantityUnit}"/>
 											<ObjectStatus text="{zreturn>ReturnReasonName}"/>
 											<ObjectStatus text="{zreturn>RefundTypeDescription}"/>
-											<RadioButtonGroup valueState="Warning">
+											
+											<RadioButtonGroup    >
 												<buttons>
-													<RadioButton text="Approve" selected="true" select="selectApproved"/>
-													<RadioButton text="Reject" select="fnSelectedReject"/>
+													<RadioButton text="Approve" class="RadioBtn_Success"  selected="true" select="selectApproved" valueState = "Error" />
+													<RadioButton text="Reject" class="RadioBtn_Error"  select="fnSelectedReject" valueState = "Success"   />
 												</buttons>
 											</RadioButtonGroup>
 											<ComboBox id="ComboxRejReason" width="400px" items="{ path: 'zreturn>/RejectText', templateShareable:false , sorter: { path: 'SalesDocumentRjcnReason' } }" showSecondaryValues="true" enabled="false" change="combRejectReasonChange">
@@ -161,7 +162,7 @@
 					<ToolbarSpacer width=""/>
 					<Button type="Emphasized" iconFirst="true" id = "btSave" width="auto" enabled="true" visible="true" iconDensityAware="false" text="Submit" press="onSave"/>
 					<Button text="Cancel" type="Default" iconFirst="true" width="auto" enabled="true" visible="true" iconDensityAware="false" press="onCancel"/>
-					<Button type="Reject" text="Error" press="onErrorbuttonPress"/>
+					
 				</content>
 			</OverflowToolbar>
 		</uxap:footer>

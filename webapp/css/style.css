@@ -1,1 +1,5 @@
 /* Enter your custom styles here */
+.RadioBtn_Success .sapMRbBOut{ stroke: #2B7D2B !important;}
+.RadioBtn_Success.sapMRbSel .sapMRbBInn{ fill: #2B7D2B !important;}
+.RadioBtn_Error .sapMRbBOut{ stroke: #BB0000 !important;}
+.RadioBtn_Error.sapMRbSel .sapMRbBInn{ fill: #BB0000 !important;}

@@ -44,13 +44,13 @@ sap.ui.define(["sap/ui/core/mvc/Controller",
 				};
 				this.getView().bindObject(oPath);
 			}
-			
-							// this.refresh();
-				// var oTable = this.byId("TabCustomerReturn");
-				// var oBinding = oTable.getBinding("items");
-				// var overView = this.getView().getModel("zreturn");
-				// overView.refresh();
-				this.onSearch();
+
+			// this.refresh();
+			// var oTable = this.byId("TabCustomerReturn");
+			// var oBinding = oTable.getBinding("items");
+			// var overView = this.getView().getModel("zreturn");
+			// overView.refresh();
+			this.onSearch();
 
 		},
 		_onFioriListReportTableItemPress: function (oEvent) {
@@ -70,8 +70,7 @@ sap.ui.define(["sap/ui/core/mvc/Controller",
 			var lvYear = oBindingContext.CreationDate.getFullYear();
 			var lvMonth = oBindingContext.CreationDate.getMonth() + 1;
 			var lvDay = oBindingContext.CreationDate.getUTCDate();
-			var lvSAPDateFormate = lvYear  + "-" + lvMonth + "-" +  lvDay;
-			
+			var lvSAPDateFormate = lvYear + "-" + lvMonth + "-" + lvDay;
 
 			var oRouter = UIComponent.getRouterFor(this);
 			oRouter.navTo("RouteReturnOrderItems", {
@@ -81,7 +80,7 @@ sap.ui.define(["sap/ui/core/mvc/Controller",
 				division: oBindingContext.OrganizationDivision,
 				customerNumber: oBindingContext.SoldToParty,
 				customerName: oBindingContext.CustomerName,
-			    creationDate : lvSAPDateFormate
+				creationDate: lvSAPDateFormate
 			});
 
 		},
@@ -280,6 +279,64 @@ sap.ui.define(["sap/ui/core/mvc/Controller",
 			var oTable = this.byId("TabCustomerReturn");
 			var oBinding = oTable.getBinding("items");
 			oBinding.filter(aFilter);
-		}
+		},
+		onErrorbuttonPress: function (oEvent) {
+			//Using this button to trigger the Batch$ postin
+			this.oModel = this.getView().getModel("ZRETURN_SAP");
+			var aDeferredGroup = this.oModel.getDeferredGroups().push("batchCreate");
+			// this.oModel.setDeferredGroups(aDeferredGroup);
+			// var mParameters = {					groupId: "batchCreate"				};
+			// this.oModel.update("/A_CustomerReturn", oEntry1, mParameters);
+			// 	var that =  this.oModel;
+
+			var lsUpdatestr = {
+				"ZZ1_ResponseDate_SDH": "2020-08-20T00:00:00"
+			};
+			var sServiceUrl = "/sap/opu/odata/sap/API_CUSTOMER_RETURN_SRV/";
+			var oModel = new sap.ui.model.odata.ODataModel(sServiceUrl, true);
+			// var status1 = {
+			// 		StatusTxt: 'Okilidokli'
+			// 	},
+			// 	contactEntry1 = {
+			// 		FirstName: 'Ned',
+			// 		LastName: 'Flanders',
+			// 		Email: '',
+			// 		Contact_Status: [status1],
+			// 	},
+			// 	status2 = {
+			// 		StatusTxt: 'Cuff em Lou'
+			// 	},
+			// 	contactEntry2 = {
+			// 		FirstName: 'Chief',
+			// 		LastName: 'Wiggum',
+			// 		Email: '',
+			// 		Contact_Status: [status2],
+			// 	};
+			//create an array of batch changes and save
+			var batchChanges = [];
+			batchChanges.push(oModel.createBatchOperation("A_CustomerReturn('60000243')", "MERGE",
+				lsUpdatestr));
+
+			// batchChanges.push(oModel.createBatchOperation("A_CustomerReturn('60000247')", "POST", lsUpdatestr));
+
+			oModel.addBatchChangeOperations(batchChanges);
+			//submit changes and refresh the table and display message
+			oModel.submitBatch(function (data) {
+				oModel.refresh();
+				// sap.ui.commons.MessageBox.show(data.__batchResponses[0].__changeResponses.length + " contacts created", 
+				//      sap.ui.commons.MessageBox.Icon.SUCCESS,
+				// 	"Batch Save", 
+				// 	sap.ui.commons.MessageBox.Action.OK);
+				if (data.__batchResponses[0].__changeResponses) {
+					alert("Inserted " + data.__batchResponses[0].__changeResponses.length + " Employee(s)");
+				} else {
+					alert(data.__batchResponses[0].message);
+				}
+				console.log("Saved successfully!");
+			}, function (err) {
+				alert("Error occurred ");
+			});
+
+		},
 	});
 }, /* bExport= */ true);

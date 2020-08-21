@@ -249,6 +249,7 @@ sap.ui.define([
 								var batchChanges = [];
 								var sServiceUrl = "/sap/opu/odata/sap/API_CUSTOMER_RETURN_SRV/";
 								var oModel = new sap.ui.model.odata.ODataModel(sServiceUrl, true);
+							
 
 								var saveSuccessfully;
 								// Do loop to update Each Item
@@ -511,65 +512,7 @@ sap.ui.define([
 								/**
 								 *@memberOf SAPUI5MyReturnOrder.MyReturnOrderAPP.controller.ReturnOrderItems
 								 */
-								onErrorbuttonPress: function (oEvent) {
-									//Using this button to trigger the Batch$ postin
-									this.oModel = this.getView().getModel("ZRETURN_SAP");
-									var aDeferredGroup = this.oModel.getDeferredGroups().push("batchCreate");
-									// this.oModel.setDeferredGroups(aDeferredGroup);
-									// var mParameters = {					groupId: "batchCreate"				};
-									// this.oModel.update("/A_CustomerReturn", oEntry1, mParameters);
-									// 	var that =  this.oModel;
-
-									var lsUpdatestr = {
-										"ZZ1_ResponseItemDate_SDI": "2020-08-20T00:00:00"
-									};
-									var sServiceUrl = "/sap/opu/odata/sap/API_CUSTOMER_RETURN_SRV/";
-									var oModel = new sap.ui.model.odata.ODataModel(sServiceUrl, true);
-									// var status1 = {
-									// 		StatusTxt: 'Okilidokli'
-									// 	},
-									// 	contactEntry1 = {
-									// 		FirstName: 'Ned',
-									// 		LastName: 'Flanders',
-									// 		Email: '',
-									// 		Contact_Status: [status1],
-									// 	},
-									// 	status2 = {
-									// 		StatusTxt: 'Cuff em Lou'
-									// 	},
-									// 	contactEntry2 = {
-									// 		FirstName: 'Chief',
-									// 		LastName: 'Wiggum',
-									// 		Email: '',
-									// 		Contact_Status: [status2],
-									// 	};
-									//create an array of batch changes and save
-									var batchChanges = [];
-									batchChanges.push(oModel.createBatchOperation("A_CustomerReturnItem(CustomerReturn='60000249',CustomerReturnItem='10')", "MERGE",
-										lsUpdatestr));
-									batchChanges.push(oModel.createBatchOperation("A_CustomerReturnItem(CustomerReturn='60000249',CustomerReturnItem='20')", "MERGE",
-										lsUpdatestr));
-									// batchChanges.push(oModel.createBatchOperation("A_CustomerReturn('60000247')", "POST", lsUpdatestr));
-
-									oModel.addBatchChangeOperations(batchChanges);
-									//submit changes and refresh the table and display message
-									oModel.submitBatch(function (data) {
-										oModel.refresh();
-										// sap.ui.commons.MessageBox.show(data.__batchResponses[0].__changeResponses.length + " contacts created", 
-										//      sap.ui.commons.MessageBox.Icon.SUCCESS,
-										// 	"Batch Save", 
-										// 	sap.ui.commons.MessageBox.Action.OK);
-										if (data.__batchResponses[0].__changeResponses) {
-											alert("Inserted " + data.__batchResponses[0].__changeResponses.length + " Employee(s)");
-										} else {
-											alert(data.__batchResponses[0].message);
-										}
-										console.log("Saved successfully!");
-									}, function (err) {
-										alert("Error occurred ");
-									});
-
-								},
+							
 								_fnAddMessagetoPopover: function (ivMessageType, ivMessage) {
 									var oMessage = new Message({
 										message: ivMessage,
