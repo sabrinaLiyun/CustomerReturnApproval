@@ -126,7 +126,8 @@ sap.ui.define([
 				var oBindingContext;
 				/*= oEvent.getSource().getBindingContext();*/
 				this.onClear();
-				this.byId("btSave").setBusy(false);
+		 
+				this.oView.setBusy(false);
 
 				return new Promise(function (fnResolve) {
 					this.doNavigate("RouteReturnOrders", oBindingContext, fnResolve, "");
@@ -200,7 +201,7 @@ sap.ui.define([
 				lcurrentDate = lcurrentDate.slice(0, -1);
 				// Set Busy Indicator
 				//idItemTable
-				this.byId("btSave").setBusy(true);
+				this.oView.setBusy(true);
 
 				// For each Record
 				for (var i = 0; i < returnOrderitems.length; i++) {
@@ -296,11 +297,13 @@ sap.ui.define([
 						if (data.__batchResponses[0].__changeResponses) {
 							// alert("Inserted " + data.__batchResponses[0].__changeResponses.length + " Items");
 							this.fnSavesuccessful(); //saveSuccessfully = "successfully";
-							this.byId("btSave").setBusy(false);
+						 
+							this.oView.setBusy(false);
+							
 							console.log("Saved successfully!");
 						} else {
 							alert(data.__batchResponses[0].message);
-							this.byId("btSave").setBusy(false);
+						   	this.oView.setBusy(false);
 						}
 
 					}.bind(this), function (err) {
@@ -313,7 +316,8 @@ sap.ui.define([
 				MessageToast.show("Return Order Items have been submitted successfully!");
 				this._onPageNavButtonPress();
 				this.onClear();
-				this.byId("btSave").setBusy(false);
+			 
+				this.oView.setBusy(false);
 			},
 			// fnSaveFail: function () {},
 			funShowconfirmationMessage: function (oEvent) {
