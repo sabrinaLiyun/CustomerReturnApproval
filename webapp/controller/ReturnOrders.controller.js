@@ -9,7 +9,7 @@ sap.ui.define(["sap/ui/core/mvc/Controller",
 ], function (BaseController, MessageBox, Utilities, History, UIComponent, MessageToast, Filter, FilterOperator) {
 	"use strict";
 
-	return BaseController.extend("SAPUI5MyReturnOrder.MyReturnOrderAPP.controller.ReturnOrders", {
+	return BaseController.extend("SAPUI5MyReturnOrder.CustomerReturnApproval.controller.ReturnOrders", {
 		handleRouteMatched: function (oEvent) {
 			var sAppId = "App1";
 

@@ -3,7 +3,7 @@ sap.ui.define([
 ], function (Opa5) {
 	"use strict";
 
-	return Opa5.extend("SAPUI5MyReturnOrder.MyReturnOrderAPP.test.integration.arrangements.Startup", {
+	return Opa5.extend("SAPUI5MyReturnOrder.CustomerReturnApproval.test.integration.arrangements.Startup", {
 
 		iStartMyApp: function (oOptionsParameter) {
 			var oOptions = oOptionsParameter || {};
@@ -14,7 +14,7 @@ sap.ui.define([
 			// start the app UI component
 			this.iStartMyUIComponent({
 				componentConfig: {
-					name: "SAPUI5MyReturnOrder.MyReturnOrderAPP",
+					name: "SAPUI5MyReturnOrder.CustomerReturnApproval",
 					async: true
 				},
 				hash: oOptions.hash,

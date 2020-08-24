@@ -7,7 +7,7 @@ sap.ui.define([
 
 	Opa5.extendConfig({
 		arrangements: new Startup(),
-		viewNamespace: "SAPUI5MyReturnOrder.MyReturnOrderAPP.view.",
+		viewNamespace: "SAPUI5MyReturnOrder.CustomerReturnApproval.view.",
 		autoWait: true
 	});
 });

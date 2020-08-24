@@ -5,7 +5,7 @@ sap.ui.getCore().attachInit(function () {
 	"use strict";
 
 	sap.ui.require([
-		"SAPUI5MyReturnOrder/MyReturnOrderAPP/test/unit/AllTests"
+		"SAPUI5MyReturnOrder/CustomerReturnApproval/test/unit/AllTests"
 	], function () {
 		QUnit.start();
 	});

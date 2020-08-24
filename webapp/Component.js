@@ -1,14 +1,14 @@
 sap.ui.define([
 	"sap/ui/core/UIComponent",
 	"sap/ui/Device",
-	"SAPUI5MyReturnOrder/MyReturnOrderAPP/model/models"
+	"SAPUI5MyReturnOrder/CustomerReturnApproval/model/models"
 ], function (UIComponent, Device, models) {
 	"use strict";
 	
 	var navigationWithContext = {
 
 	};
-	return UIComponent.extend("SAPUI5MyReturnOrder.MyReturnOrderAPP.Component", {
+	return UIComponent.extend("SAPUI5MyReturnOrder.CustomerReturnApproval.Component", {
 		
 
 		metadata: {

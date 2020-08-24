@@ -1,4 +1,4 @@
-<mvc:View xmlns:mvc="sap.ui.core.mvc" xmlns:core="sap.ui.core" xmlns:uxap="sap.uxap" xmlns="sap.m" controllerName="SAPUI5MyReturnOrder.MyReturnOrderAPP.controller.ReturnOrderItems">
+<mvc:View xmlns:mvc="sap.ui.core.mvc" xmlns:core="sap.ui.core" xmlns:uxap="sap.uxap" xmlns="sap.m" controllerName="SAPUI5MyReturnOrder.CustomerReturnApproval.controller.ReturnOrderItems">
 	<uxap:ObjectPageLayout showTitleInHeaderContent="false" showHeaderContent="true" showEditHeaderButton="false" showFooter="true" class="sapUiSizeCompact">
 		<uxap:headerTitle>
 			<uxap:ObjectPageHeader id="objectHeaderOrder" objectTitle="Return Order {OrderResource>/OrderNo}" objectSubtitle="" isObjectIconAlwaysVisible="false" isObjectTitleAlwaysVisible="true" isObjectSubtitleAlwaysVisible="true" showPlaceholder="true" objectImageURI="/build/uilibraries/content/static/image-canvas.svg">

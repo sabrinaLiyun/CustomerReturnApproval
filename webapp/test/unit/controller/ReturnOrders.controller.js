@@ -1,7 +1,7 @@
 /*global QUnit*/
 
 sap.ui.define([
-	"SAPUI5MyReturnOrder/MyReturnOrderAPP/controller/ReturnOrders.controller"
+	"SAPUI5MyReturnOrder/CustomerReturnApproval/controller/ReturnOrders.controller"
 ], function (Controller) {
 	"use strict";
 

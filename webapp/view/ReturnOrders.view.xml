@@ -1,6 +1,6 @@
 <mvc:View xmlns:mvc="sap.ui.core.mvc" xmlns:f="sap.f" xmlns:variants="sap.ui.comp.variants" xmlns="sap.m"
 	xmlns:filterbar="sap.ui.comp.filterbar" xmlns:core="sap.ui.core"
-	controllerName="SAPUI5MyReturnOrder.MyReturnOrderAPP.controller.ReturnOrders">
+	controllerName="SAPUI5MyReturnOrder.CustomerReturnApproval.controller.ReturnOrders">
 	<App id="ReturnOrder">
 		<f:DynamicPage headerExpanded="true" showFooter="false" class="sapUiSizeCompact">
 			<f:title>
