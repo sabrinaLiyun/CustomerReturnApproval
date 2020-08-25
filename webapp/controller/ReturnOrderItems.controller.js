@@ -126,7 +126,7 @@ sap.ui.define([
 				var oBindingContext;
 				/*= oEvent.getSource().getBindingContext();*/
 				this.onClear();
-		 
+
 				this.oView.setBusy(false);
 
 				return new Promise(function (fnResolve) {
@@ -188,6 +188,16 @@ sap.ui.define([
 					fnPromiseResolve();
 				}
 			},
+			successCallback: function (that) {
+				MessageToast.show("Return Order Items have been submitted successfully!");
+				 that.oView.setBusy(false);
+				that.fnSavesuccessful();
+			},
+			errorCallback: function (that) {
+				MessageToast.show("Return Order Items have been submitted Failed!");
+				that.oView.setBusy(false);
+
+			},
 			fnApprovalReject: function (oEvent) {
 				// var c4Text;
 				var lvCustoermReturnItem;
@@ -235,7 +245,6 @@ sap.ui.define([
 					if (lvApproval === 1 && lvRejectReason !== "") {
 						larrayItems.push({
 							// "CustomerReturnItem": lvCustoermReturnOrder,
-
 							"CustomerReturnItem": lvCustoermReturnItem,
 							"SalesDocumentRjcnReason": lvRejectReason
 						});
@@ -251,33 +260,53 @@ sap.ui.define([
 				if (larrayItems.length === 0) {
 					MessageBox.error("No items are filled");
 				} else {
-					var batchChanges = [];
-					var sServiceUrl = "/sap/opu/odata/sap/API_CUSTOMER_RETURN_SRV/";
-					var oModel = new sap.ui.model.odata.ODataModel(sServiceUrl, true);
-
-					var saveSuccessfully;
-					// Do loop to update Each Item
+					// var batchChanges = [];
+					// var sServiceUrl = "/sap/opu/odata/sap/API_CUSTOMER_RETURN_SRV/";
+					// var oModel = new sap.ui.model.odata.ODataModel(sServiceUrl, true);
+					// var oModelscp = this.oView.oModel("ZRETURN_SAP");
+					this.oModel = this.getView().getModel("ZRETURN_SAP");
+					var oModel = this.oModel;
+					oModel.setDeferredGroups([lvCustoermReturnOrder]);
+					// var oModel = this.oModel;
 					for (i = 0; i < larrayItems.length; i++) {
 						var lsPath = "/A_CustomerReturnItem" + "(CustomerReturn='" + lvCustoermReturnOrder + "',CustomerReturnItem='" + larrayItems[i].CustomerReturnItem +
 							"')";
-						// lsUpdateParamters = 
-						// this.oModel.update(lsPath, /*Path*/
-						// 	larrayUpdateParameter[i], /*UPdate parameter*/ {
-						// 		refreshAfterChange: true,
-						// 		success: function () {
-						// 			// console.log("success", res);
-						// 			this.fnSavesuccessful(); //saveSuccessfully = "successfully";
-						// 		}.bind(this),
-						// 		error: function () {
-						// 			// console.log("failed", res);
-						// 			// this.para_this();
-						// 			// saveSuccessfully = "failed"; Nothing 
-						// 		}.bind(this)
-						// 	});
 
-						batchChanges.push(oModel.createBatchOperation(lsPath, "MERGE", larrayUpdateParameter[i]));
-						oModel.addBatchChangeOperations(batchChanges);
-					} // Update finished if successfully then back to original overview page else keep current page
+						oModel.update(lsPath, larrayUpdateParameter[i], {
+							groupId: lvCustoermReturnOrder
+						});
+
+					}
+
+					oModel.submitChanges({
+						groupId: lvCustoermReturnOrder,
+						success: this.successCallback(this ),
+						error: this.errorCallback(this),
+					});
+
+					/*				var saveSuccessfully;
+									// Do loop to update Each Item
+									for (i = 0; i < larrayItems.length; i++) {
+										var lsPath = "/A_CustomerReturnItem" + "(CustomerReturn='" + lvCustoermReturnOrder + "',CustomerReturnItem='" + larrayItems[i].CustomerReturnItem +
+											"')";
+										// lsUpdateParamters = 
+										// this.oModel.update(lsPath, /*Path*/
+					// 	larrayUpdateParameter[i], /*UPdate parameter*/ {
+					// 		refreshAfterChange: true,
+					// 		success: function () {
+					// 			// console.log("success", res);
+					// 			this.fnSavesuccessful(); //saveSuccessfully = "successfully";
+					// 		}.bind(this),
+					// 		error: function () {
+					// 			// console.log("failed", res);
+					// 			// this.para_this();
+					// 			// saveSuccessfully = "failed"; Nothing 
+					// 		}.bind(this)
+					// 	});
+
+					// 	batchChanges.push(oModel.createBatchOperation(lsPath, "MERGE", larrayUpdateParameter[i]));
+					// 	oModel.addBatchChangeOperations(batchChanges);
+					// } // Update finished if successfully then back to original overview page else keep current page
 					// if (saveSuccessfully === "failed") {
 					// 	para_this._onPageNavButtonPress(oEvent);
 					// 	para_this.onClear();
@@ -288,35 +317,35 @@ sap.ui.define([
 					// 	para_this.onClear();
 					// }
 					//submit changes and refresh the table and display message
-					oModel.submitBatch(function (data) {
-						oModel.refresh();
-						// sap.ui.commons.MessageBox.show(data.__batchResponses[0].__changeResponses.length + " contacts created", 
-						//      sap.ui.commons.MessageBox.Icon.SUCCESS,
-						// 	"Batch Save", 
-						// 	sap.ui.commons.MessageBox.Action.OK);
-						if (data.__batchResponses[0].__changeResponses) {
-							// alert("Inserted " + data.__batchResponses[0].__changeResponses.length + " Items");
-							this.fnSavesuccessful(); //saveSuccessfully = "successfully";
-						 
-							this.oView.setBusy(false);
-							
-							console.log("Saved successfully!");
-						} else {
-							alert(data.__batchResponses[0].message);
-						   	this.oView.setBusy(false);
-						}
+					// oModel.submitBatch(function (data) {
+					// 	oModel.refresh();
+					// 	// sap.ui.commons.MessageBox.show(data.__batchResponses[0].__changeResponses.length + " contacts created", 
+					// 	//      sap.ui.commons.MessageBox.Icon.SUCCESS,
+					// 	// 	"Batch Save", 
+					// 	// 	sap.ui.commons.MessageBox.Action.OK);
+					// 	if (data.__batchResponses[0].__changeResponses) {
+					// 		// alert("Inserted " + data.__batchResponses[0].__changeResponses.length + " Items");
+					// 		this.fnSavesuccessful(); //saveSuccessfully = "successfully";
 
-					}.bind(this), function (err) {
-						alert("Error occurred ");
-					}.bind(this));
+					// 		this.oView.setBusy(false);
+
+					// 		console.log("Saved successfully!");
+					// 	} else {
+					// 		alert(data.__batchResponses[0].message);
+					// 		this.oView.setBusy(false);
+					// 	}
+
+					// }.bind(this), function (err) {
+					// 	alert("Error occurred ");
+					// }.bind(this));*/
 				} /*if larrayItems.length === 0Eelse*/
 			},
 			fnSavesuccessful: function (oEvent) {
 				// saveSuccessfully = "";
-				MessageToast.show("Return Order Items have been submitted successfully!");
-				this._onPageNavButtonPress();
+				// MessageToast.show("Return Order Items have been submitted successfully!");
 				this.onClear();
-			 
+				this._onPageNavButtonPress();
+
 				this.oView.setBusy(false);
 			},
 			// fnSaveFail: function () {},
