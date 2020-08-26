@@ -9,10 +9,11 @@ sap.ui.define([
 		"sap/ui/core/message/Message",
 		"sap/ui/core/library",
 		"sap/ui/model/json/JSONModel",
-		"sap/ui/model/BindingMode"
+		"sap/ui/model/BindingMode",
+		"sap/ui/core/message/MessageProcessor"
 
 	], function (BaseController, MessageBox, Utilities, History, Filter, FilterOperator, MessageToast, Message, library, JSONModel,
-		BindingMode) {
+		BindingMode, MessageProcessor) {
 		"use strict";
 		// shortcut for sap.ui.core.ValueState
 		// shortcut for sap.ui.core.MessageType
@@ -24,12 +25,16 @@ sap.ui.define([
 				this.onClear();
 				// MessageManager handeler.
 				var oMessageManager, oModel, oView;
+
 				oView = this.getView();
 				// set message model
 				oMessageManager = sap.ui.getCore().getMessageManager();
+
 				oView.setModel(oMessageManager.getMessageModel(), "message");
+
 				// or just do it for the whole view
 				oMessageManager.registerObject(oView, true);
+
 				// create a default model with somde demo data
 				oModel = new JSONModel({
 					MandatoryInputValue: "",
@@ -39,6 +44,9 @@ sap.ui.define([
 				});
 				oModel.setDefaultBindingMode(BindingMode.TwoWay);
 				oView.setModel(oModel);
+			},
+			messageOdataAdded: function () {
+				MessageToast.show("Odata feedback with message!");
 			},
 			handleRouteMatched: function (oEvent) {
 				var oParams = {};
@@ -188,10 +196,46 @@ sap.ui.define([
 					fnPromiseResolve();
 				}
 			},
-			successCallback: function (that) {
-				MessageToast.show("Return Order Items have been submitted successfully!");
-				 that.oView.setBusy(false);
-				that.fnSavesuccessful();
+			successCallback: function (that ,response) {
+				var i;
+				var responseList = response.__batchResponses;
+				var responseresult ;
+				var lsMessageText;
+				var lsResponseStatus;
+				that.oView.setBusy(false);
+				sap.ui.getCore().getMessageManager().removeAllMessages();
+				// var MymessageModel = sap.ui.getCore().getMessageManager().getMessageModel() ;
+				 
+				
+			
+				for (i = 0; i < responseList.length; i++){
+					    lsResponseStatus = responseList[i].__changeResponses[0].statusCode
+						if(lsResponseStatus !=="204"){
+						 //MessageToast.show("Return Order Items have been submitted Failed!");
+					      lsMessageText = JSON.parse(responseList[i].response.body).error.message.value;
+					      //var MymessageModel = sap.ui.getCore().getMessageManager().getMessageModel() ;
+					      that._fnAddMessagetoPopover(MessageType.Error,  lsMessageText);
+					     
+						 responseresult = "Error";
+						 
+						}
+					     else{
+					     //responseresult = "Successfully";
+					     }
+						
+					}
+			   if(responseresult === "Error"){
+			   	MessageToast.show("Return Order Items have been submitted Failed!");
+			   	 //that._fnAddMessagetoPopover(MessageType.Error,  lsMessageText);
+			   	
+			   }
+			   else{				
+			   	MessageToast.show("Return Order Items have been submitted successfully!");
+				that.oView.setBusy(false);
+				that.fnSavesuccessful(); 
+			   	
+			   }
+
 			},
 			errorCallback: function (that) {
 				MessageToast.show("Return Order Items have been submitted Failed!");
@@ -280,8 +324,14 @@ sap.ui.define([
 
 					oModel.submitChanges({
 						groupId: lvCustoermReturnOrder,
-						success: this.successCallback(this ),
-						error: this.errorCallback(this),
+						success: function (response) {
+							this.successCallback(this , response);
+
+						}.bind(this),
+						error: function (error) {
+							this.errorCallback(this);
+
+						}.bind(this)
 					});
 
 					/*				var saveSuccessfully;
@@ -560,6 +610,7 @@ sap.ui.define([
 			 */
 
 			_fnAddMessagetoPopover: function (ivMessageType, ivMessage) {
+
 				var oMessage = new Message({
 					message: ivMessage,
 					type: ivMessageType,
