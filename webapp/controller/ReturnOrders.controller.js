@@ -147,7 +147,7 @@ sap.ui.define(["sap/ui/core/mvc/Controller",
 				if (oTable.getBinding("items") && oTable.getBinding("items").isLengthFinal()) {
 					oTitle.setText("(" + oTable.getBinding("items").getLength() + ")");
 				} else {
-					oTitle.setText("(1)");
+					oTitle.setText("(0)");
 				}
 			}
 
